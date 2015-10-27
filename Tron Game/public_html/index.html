@@ -1,100 +1,18 @@
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 <html>
     <head>
         <title>Light Bikes game</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" type="text/css" href="styles/style.css">
-        <script language ="Javascript">
-            function Moto(canvas, numJoueur, posW, posH, contx,dath){
-                this.canvas = canvas;
-                this.numJoueur=numJoueur;
-                this.posH = posH;
-                this.posW = posW;
-                this.contx = contx;
-                this.dath = dath;
-                
-                if(numJoueur===1){
-                    posW = (canvas.width/2) - 100;
-                    posH = (canvas.height/2) - 50;
-                    dath = "blue";
-                    team = "fuar";
-                }
-                else if(numJoueur===2){
-                    posW = (canvas.width/2) - 100;
-                    posH = (canvas.height/2);
-                    dath = "yellow";
-                    team = "te";
-                }
-                else if(numJoueur===3){
-                    posW = canvas.width/2 - 100;
-                    posH = canvas.height/2 + 50;
-                    dath = "purple";
-                    team = "fuar";
-                }
-                else if(numJoueur===4){
-                    posW = canvas.width/2 + 100;
-                    posH = canvas.height/2 + 50;
-                    dath = "red";
-                    team = "te";
-                }
-                else if(numJoueur===5){
-                    posW = canvas.width/2 + 100;
-                    posH = canvas.height/2;
-                    dath = "green";
-                    team = "fuar";
-                }
-                else{
-                    posW = canvas.width/2 + 100;
-                    posH = canvas.height/2 - 50;
-                    dath = "orange";
-                    team = "te";
-                }
-            
-            
-             Moto.prototype.dessiner = function(){
-                
-                
-                //time to draw... bang bang
-                contx.beginPath();
-                contx.rect(posW, posH, 10, 5);
-                contx.stroke();
-                contx.fillStyle = dath;
-                contx.fill();
-                contx.closePath();
-            };}
+        <script src="script.js" defer="true">
         </script>
 
     </head>
     <body>
         <h1>What a day what a lovely day !!<h1>
         <div>
-            <canvas id="myCanvas" width="1100" height="550"></canvas>
-		<script language="Javascript">
-                        var c = document.getElementById("myCanvas");
-                        var ctx=c.getContext("2d");
-                        var posW = 0; var posH = 0; var dath = "whatever"; var team = "";
-                        
-                        var j1 = new Moto(myCanvas, 1, posW, posH, ctx,dath);
-                        j1.dessiner();
-                        var j2 = new Moto(myCanvas, 2, posW, posH, ctx,dath);
-                        j2.dessiner();
-                        var j3 = new Moto(myCanvas, 3, posW, posH, ctx,dath);
-                        j3.dessiner();
-                        var j4 = new Moto(myCanvas, 4, posW, posH, ctx,dath);
-                        j4.dessiner();
-                        var j5 = new Moto(myCanvas, 5, posW, posH, ctx,dath);
-                        j5.dessiner();
-                        var j6 = new Moto(myCanvas, 6, posW, posH, ctx,dath);
-                        j6.dessiner();
-                          
-		</script>
+            <canvas class="myCanvas" width="1100" height="550"></canvas>
         </div> 
-                
     </body>
 </html>
