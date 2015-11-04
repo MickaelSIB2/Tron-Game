@@ -1,6 +1,4 @@
-
 /*window.onload = function(){
-window.onload = function(){
         var id;
         var c = document.querySelector(".myCanvas");
         var ctx = c.getContext("2d");
@@ -39,7 +37,6 @@ window.onload = function(){
                                                 dath
                                                 );
                                ajouterJoueur(c, ctx);                               
-                                player.dessiner();
                                 data.players.forEach(function(element){
                                         players.push(
                                                 new Moto(
@@ -92,10 +89,9 @@ window.onload = function(){
  var dath = "whatever"; var team = "";
  var numjou = 0; var j1; var j2; var j3; var j4; var j5; var j6;
 
-        function Moto(canvas, numJoueur, posW, posH, contx,dath){
+function Moto(canvas, numJoueur, posW, posH, contx, dath){
                 this.canvas = canvas;
-                this.numJoueur = numJoueur;
-
+                this.numJoueur=numJoueur;
                 this.posH = posH;
                 this.posW = posW;
                 this.contx = contx;
@@ -143,17 +139,17 @@ window.onload = function(){
                 else if(numJoueur===5){
                     // posW = canvas.width/2 + 100;
                     // posH = canvas.height/2;
-					posW = 5;
-					posH = 5;
+					posW = canvas.width - 5;
+					posH = canvas.height - 5;
                     bike.src = "styles/j5_up.png";
 					angle = 270;
                     team = "fuar";
                 }
-                else if(numJoueur===6){
+                else if(numJoueur===5){
                     // posW = canvas.width/2 + 100;
                     // posH = canvas.height/2 - 50;
-					posW = canvas.width - 5;
-					posH = canvas.height - 5;
+					posW = 5;
+					posH = 5;
                     bike.src = "styles/j6_up.png";
 					angle = 90;
                     team = "te";
@@ -192,7 +188,7 @@ function ajouterJoueur(canvas, ctx){
 	this.ctx = ctx;
         //this.joueur = joueur;
 	
-	if(numjou >= 6){
+	if(numjou > 6){
 		window.alert("Il y a déjà 6 joueurs :/ Il vous faut attendre la prochaine partie.");
 	}
 	else{
@@ -234,8 +230,5 @@ function ajouterJoueur(canvas, ctx){
 			j6.dessiner();
 		}
 	}
-        
 }
 //};
-           
-
