@@ -85,25 +85,26 @@
 		
  var c = document.getElementById("myCanvas");
  var ctx=c.getContext("2d");
- var posW = 0; var posH = 0; var dath = "whatever"; var team = "";
- var players = []; var player;
+ var posW = 0; var posH = 0; 
+ var dath = "whatever"; var team = "";
+ var numjou = 0; var j1; var j2; var j3; var j4; var j5; var j6;
 
-function Moto(canvas, numJoueur, posW, posH, contx,dath){
+function Moto(canvas, numJoueur, posW, posH, contx, dath){
                 this.canvas = canvas;
                 this.numJoueur=numJoueur;
                 this.posH = posH;
                 this.posW = posW;
                 this.contx = contx;
                 this.dath = dath;
-				var angle;
-				var bike = new Image();
+                var angle;
+		var bike = new Image();
 				
                 
                 if(numJoueur===1){
                     //posW = (canvas.width/2) - 100;
                     //posH = (canvas.height/2) - 50;
-					posW = (canvas.width) - 3;
-					posH = (canvas.height/2);
+                    posW = (canvas.width)- 3;
+                    posH = (canvas.height/2);
                     bike.src = "styles/j1_up.png";
 					angle = 270;
 					team = "fuar";
@@ -111,7 +112,7 @@ function Moto(canvas, numJoueur, posW, posH, contx,dath){
                 else if(numJoueur===2){
                     // posW = (canvas.width/2) - 100;
                     // posH = (canvas.height/2);
-					posW = 3;
+					posW = 5;
 					posH = (canvas.height/2);
                     bike.src = "styles/j2_up.png";
 					angle = 90;
@@ -120,8 +121,8 @@ function Moto(canvas, numJoueur, posW, posH, contx,dath){
                 else if(numJoueur===3){
                     // posW = canvas.width/2 - 100;
                     // posH = canvas.height/2 + 50;
-					posW = (canvas.width) - 3;
-					posH = 0;
+					posW = (canvas.width) - 5;
+					posH = 5;
                     bike.src = "styles/j3_up.png";
 					angle = 270;
                     team = "fuar";
@@ -129,8 +130,8 @@ function Moto(canvas, numJoueur, posW, posH, contx,dath){
                 else if(numJoueur===4){
                     // posW = canvas.width/2 + 100;
                     // posH = canvas.height/2 + 50;
-					posW = 3;
-					posH = canvas.height;
+					posW = 5;
+					posH = canvas.height - 5;
                     bike.src = "styles/j4_up.png";
 					angle = 90;
                     team = "te";
@@ -138,8 +139,8 @@ function Moto(canvas, numJoueur, posW, posH, contx,dath){
                 else if(numJoueur===5){
                     // posW = canvas.width/2 + 100;
                     // posH = canvas.height/2;
-					posW = (canvas.width) - 3;
-					posH = canvas.heigth;
+					posW = 5;
+					posH = 5;
                     bike.src = "styles/j5_up.png";
 					angle = 270;
                     team = "fuar";
@@ -147,8 +148,8 @@ function Moto(canvas, numJoueur, posW, posH, contx,dath){
                 else{
                     // posW = canvas.width/2 + 100;
                     // posH = canvas.height/2 - 50;
-					posW = 3;
-					posH = 0;
+					posW = canvas.width - 5;
+					posH = canvas.height - 5;
                     bike.src = "styles/j6_up.png";
 					angle = 90;
                     team = "te";
@@ -171,15 +172,23 @@ function Moto(canvas, numJoueur, posW, posH, contx,dath){
                 <!--contx.fillStyle = dath;
                 <!--contx.fill();
                 <!--contx.closePath();*/
+            };
+        Moto.prototype.getPosW = function(){
+                return(this.posW);
+            };
+            
+            Moto.prototype.getPosH = function(){
+                return(this.posH);
             };}
+        
+            
 			
-var numjou = 0; var j1; var j2; var j3; var j4; var j5; var j6;
 function ajouterJoueur(canvas, ctx){
 	this.canvas = canvas;
 	this.ctx = ctx;
         //this.joueur = joueur;
 	
-	if(numjou >= 6){
+	if(numjou > 6){
 		window.alert("Il y a déjà 6 joueurs :/ Il vous faut attendre la prochaine partie.");
 	}
 	else{
@@ -197,9 +206,10 @@ function ajouterJoueur(canvas, ctx){
 			c.width = c.width + 50;
 			c.height = c.height + 25;
 			//forEach(data.player){player.dessiner();};
-			 j1.dessiner(); j2.dessiner();
-			j3 = new Moto(canvas, 3, posW, posH, ctx, dath);
+                        j3 = new Moto(canvas, 3, posW, posH, ctx, dath);
 			j3.dessiner();
+			this.posW=j1.getPosW(); this.posH=j1.getPosH(); j1 = new Moto (canvas, 1, posW, posH, ctx, dath); j1.dessiner();
+                        this.posW=j2.getPosW();  this.posH=j2.getPosH();  j2 = new Moto (canvas, 2, posW, posH, ctx, dath); j2.dessiner();			
 		}
 		if(numjou === 4){
 			j4 = new Moto(canvas, 4, posW, posH, ctx, dath);
@@ -208,9 +218,12 @@ function ajouterJoueur(canvas, ctx){
 		if(numjou === 5){
 			c.width = c.width + 50;
 			c.height = c.height + 25;
-			j1.dessiner(); j2.dessiner();j3.dessiner(); j4.dessiner();
 			j5 = new Moto(canvas, 5, posW, posH, ctx, dath);
 			j5.dessiner();
+                        this.posW=j1.getPosW(); this.posH=j1.getPosH(); j1 = new Moto (canvas, 1, posW, posH, ctx, dath); j1.dessiner();
+                        this.posW=j2.getPosW();  this.posH=j2.getPosH();  j2 = new Moto (canvas, 2, posW, posH, ctx, dath); j2.dessiner();
+                        this.posW=j3.getPosW(); this.posH=j3.getPosH(); j3 = new Moto (canvas, 3, posW, posH, ctx, dath); j3.dessiner();
+                        this.posW=j4.getPosW();  this.posH=j4.getPosH();  j4 = new Moto (canvas, 4, posW, posH, ctx, dath); j4.dessiner();
 		}
 		if(numjou === 6){
 			j6 = new Moto(canvas, 6, posW, posH, ctx, dath);
