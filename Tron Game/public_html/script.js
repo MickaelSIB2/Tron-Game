@@ -82,7 +82,6 @@
  }
  }*/
 
-auchargement = function(){
     var c = document.getElementById("myCanvas");
     var ctx = c.getContext("2d");
     var posW = 0;
@@ -153,7 +152,7 @@ auchargement = function(){
             angle = 270;
             team = "fuar";
         }
-        else if (numJoueur === 5) {
+        else if (numJoueur === 6) {
             // posW = canvas.width/2 + 100;
             // posH = canvas.height/2 - 50;
             posW = 5;
@@ -165,6 +164,7 @@ auchargement = function(){
 
 
         Moto.prototype.dessiner = function () {
+            bike.onload = function(){
             //time to draw... bang bang
             var TO_RADIANS = Math.PI / 180;
             contx.save();
@@ -178,6 +178,7 @@ auchargement = function(){
              <!--contx.fillStyle = dath;
              <!--contx.fill();
              <!--contx.closePath();*/
+            }
         };
         Moto.prototype.getPosW = function () {
             return(this.posW);
@@ -256,5 +257,5 @@ auchargement = function(){
             }
         }
     }
-}; 
+
 //};
