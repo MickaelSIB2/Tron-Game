@@ -1,0 +1,27 @@
+{
+  "name": "Tron",
+  "version": "1.0.0",
+  "description": "Tron game DCISS",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+        "node": "0.10.37"
+  },
+  "dependencies": {
+        "express": "4.13.3",
+        "ws": "^0.8.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Erawpalassalg/Tron-Website-Test.git"
+  },
+  "keywords": [
+    "tron",
+    "dciss",
+    "game"
+  ],
+  "author": "Erawpalassalg",
+  "license": "ISC"
+}

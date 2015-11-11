@@ -1,0 +1,11 @@
+#myCanvas {
+    background-color: #222222;
+    border-collapse: collapse;
+    //border-radius: 20px;
+    border-style: solid;
+    border-color:green;
+}
+
+body {
+    background-color: #444444;
+}
