@@ -10,13 +10,20 @@
         <script src="socketHandling.js" defer="true"></script>
 
     </head>
-    <body onload="auchargement()">
-        
+    <body>
         <h1>What a day what a lovely day !!<h1>
+            
+                <!-- deuxième canvas pour la moto de profil -->
+                <!-- <aside><canvas id="yarBike" width="250" height="125"></canvas></aside> -->
                 <div>
-		<button onclick="ajouterJoueur(myCanvas, ctx);">Je veux jouer !</button>
-            </div>
-            <canvas id="myCanvas" width="1100" height="550"></canvas>
+                    <button class="jouer" onclick="ajouterJoueur();">Je veux jouer !</button>
+                    <button id="test" onclick="movej1();" >Test</button>
+                </div>
+           
+            
+                <canvas id="myCanvas" width="1100" height="550">
+                    Your browser does not support canvas!
+                </canvas>
             
     </body>
 </html>
