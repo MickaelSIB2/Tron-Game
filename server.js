@@ -3,8 +3,6 @@ var express = require('express')
 var http = require('http')
 var app = express();
 var port = process.env.PORT || 3000 // To work on Heroku
-var players = [];
-var staying_players;
 
 // -------------------------------------------------- Create the Server itself
 
@@ -107,14 +105,14 @@ wss.on("connection", function(ws){
 
 });
 
-// ------------------------------------------------------- Define WSS functions
+// ------------------------------------------------------ Define WSS functions
 wss.broadcast = function broadcast(data) {
   wss.clients.forEach(function each(client) {
         client.send(JSON.stringify(data));
   });
 };
 
-// ----------------------------------------- Define Server-Side game functions.
+// ----------------------------------------- Define Server-Side game functions
 
 // PUT THEM HERE.
 // You also can put them in a separate file and import them if you prefer
