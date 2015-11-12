@@ -191,17 +191,9 @@ function Moto(canvas, numJoueur, posW, posH, contx, dath) {
      txc.drawImage(bike_prof, bike_prof.current * bike_prof.width, 0, 
      bike_prof.width, bike_prof.height, c1.width/2, c1.heigth/2, bike_prof.width, bike_prof.height);
      bike_prof.current = (bike_prof.current + 1) % bike_prof.total_frames;
-     }
      }*/
+     }
 
-    Moto.prototype.drive = function (direction) {
-        this.posW = Math.round(this.posW * Math.cos(Math.PI * direction));
-        this.posH = Math.round(this.posH * Math.cos(Math.PI * direction));
-        this.dessiner();
-    };
-
-
-}
 
 ////////////////////////////////////////////////
 function ajouterJoueur() {
