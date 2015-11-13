@@ -5,6 +5,13 @@
 
 var host = location.origin.replace(/^http/, 'ws');
 var socket = new WebSocket(host);
+var jouer = document.querySelector(".jouer");
+jouer.addEventListener("click", send, false);
+
+var send = function(){
+	socket.send(JSON.stringify({code: 1}));
+}
+
 
 socket.onmessage = function(e){
   var msg = JSON.parse(e.data);
@@ -21,7 +28,25 @@ socket.onmessage = function(e){
       // And about this player.
       //  Stuff Like this player ID
       //
-      // Access it via msg.playerID for example.
+      // Access it via msg.playerID 
+	
+      ajouterJoueur(msg.playerID);
+      if(j2==!null){
+          j2.dessiner();
+      }
+      if(j3==!null){
+          j3.dessiner();
+      }
+      if(j4==!null){
+          j4.dessiner();
+      }
+      if(j5==!null){
+          j5.dessiner();
+      }
+      if(j6==!null){
+          j6.dessiner();
+      }
+      
       break;
     case 2:
       // WHEN A NEW PLAYER, WHICH IS NOT ME, ENTERS THE GAME.

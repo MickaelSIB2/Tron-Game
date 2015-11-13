@@ -91,13 +91,13 @@ var posW = 500;
 var posH = 0;
 var dath = "whatever";
 var team = "";
-var numjou = 0;
-var j1;
-var j2;
-var j3;
-var j4;
-var j5;
-var j6;
+//var numjou = 0;
+var j1=null;
+var j2=null;
+var j3=null;
+var j4=null;
+var j5=null;
+var j6=null;
 
 
 /////////// L I G H T B I K E //////////////////////////////////////////////
@@ -196,7 +196,7 @@ function Moto(canvas, numJoueur, posW, posH, contx, dath) {
 
 
 ////////////////////////////////////////////////
-function ajouterJoueur() {
+function ajouterJoueur(numjou) {
 
     if (numjou > 6) {
         window.alert("Il y a déjà 6 joueurs :/ Il vous faut attendre la\n\
