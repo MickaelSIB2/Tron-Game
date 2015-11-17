@@ -15,7 +15,7 @@ var send = function(){
 
 socket.onmessage = function(e){
   var msg = JSON.parse(e.data);
-
+  var id = msg.playerID;
   // Every piece of data are accessibles via msg.something
   switch (msg.code){
     case 1:
@@ -29,23 +29,17 @@ socket.onmessage = function(e){
       //  Stuff Like this player ID
       //
       // Access it via msg.playerID 
-	
-      ajouterJoueur(msg.playerID);
-      if(j2==!null){
-          j2.dessiner();
-      }
-      if(j3==!null){
-          j3.dessiner();
-      }
-      if(j4==!null){
-          j4.dessiner();
-      }
-      if(j5==!null){
-          j5.dessiner();
-      }
-      if(j6==!null){
-          j6.dessiner();
-      }
+      
+      
+      ajouterJoueur(id[0]);
+      //balancer la position des autres joueurs
+      for(var i = 1; i <= 6; i++){
+              if(id[i].exists){
+                  var lightBike = new Moto(c, i, id.posW, id.posH, ctx, id.couleur);
+              }
+          } 
+  
+      
       
       break;
     case 2:
@@ -56,6 +50,9 @@ socket.onmessage = function(e){
       // (or just saying that a new player is here could be
       // fine if The client already handles things like
       // colors)
+      
+      ajouterJoueur(id);
+      
       break;
     case 3:
       // WHEN A PLAYER DIES
@@ -63,6 +60,9 @@ socket.onmessage = function(e){
       //
       // Stuff like its number or color or ID
       // or whatever identifies it on the client.
+      
+      j[id].laMuerta();
+      
       break;
     case 4:
       // WHEN A PLAYER DISCONNECTS

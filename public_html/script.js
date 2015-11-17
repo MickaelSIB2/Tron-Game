@@ -92,12 +92,13 @@ var posH = 0;
 var dath = "whatever";
 var team = "";
 //var numjou = 0;
-var j1=null;
-var j2=null;
-var j3=null;
-var j4=null;
-var j5=null;
-var j6=null;
+var j = [null, null, null, null, null, null];
+//var j1=null;
+//var j2=null;
+//var j3=null;
+//var j4=null;
+//var j5=null;
+//var j6=null;
 
 
 /////////// L I G H T B I K E //////////////////////////////////////////////
@@ -176,13 +177,21 @@ function Moto(canvas, numJoueur, posW, posH, contx, dath) {
             contx.restore();
         };
     };
-    Moto.prototype.getPosW = function () {
-        return(this.posW);
+    Moto.prototype.setPosW = function (width) {
+        this.posW = width;
     };
 
-    Moto.prototype.getPosH = function () {
-        return(this.posH);
+    Moto.prototype.setPosH = function (height) {
+        this.posH = height;
     };
+    
+    Moto.prototype.laMuerta = function (){
+        bike.src="styles/Badaboum!.png";
+        this.dessiner();
+        setTimeout(function(){
+          this = null;  
+        }, 3000);
+    }
 
     /*afficher la photo de profil dans le deuxième canvas.
      * Moto.prototype.displayProfile = function(){
@@ -205,52 +214,52 @@ function ajouterJoueur(numjou) {
     else {
         numjou++;
         if (numjou === 1) {
-            j1 = new Moto(c, 1, ((c.width) - 3), (c.height / 2), ctx, dath);
-            j1.dessiner(); //j1.displayProfile(); 
+            j[0] = new Moto(c, 1, ((c.width) - 3), (c.height / 2), ctx, dath);
+            j[0].dessiner(); //j1.displayProfile(); 
             
         }
         if (numjou === 2) {
-            j2 = new Moto(c, 2, 5, (c.height / 2), ctx, dath);
-            j2.dessiner();
+            j[1] = new Moto(c, 2, 5, (c.height / 2), ctx, dath);
+            j[1].dessiner();
             
         }
         if (numjou === 3) {
             c.width = c.width + 50;
             c.height = c.height + 25;
-            j3 = new Moto(c, 3, ((c.width) - 5), 5, ctx, dath);
-            j3.dessiner();
+            j[2] = new Moto(c, 3, ((c.width) - 5), 5, ctx, dath);
+            j[2].dessiner();
 
-            j1 = new Moto(c, 1, j1.posW, j1.posH, ctx, dath);
-            j1.dessiner();
+            j[0] = new Moto(c, 1, j[0].posW, j[0].posH, ctx, dath);
+            j[0].dessiner();
 
-            j2 = new Moto(c, 2, j2.posW, j2.posH, ctx, dath);
-            j2.dessiner();
+            j[1] = new Moto(c, 2, j[1].posW, j[1].posH, ctx, dath);
+            j[1].dessiner();
         }
         if (numjou === 4) {
-            j4 = new Moto(c, 4, 5, (c.height - 5), ctx, dath);
-            j4.dessiner();
+            j[3] = new Moto(c, 4, 5, (c.height - 5), ctx, dath);
+            j[3].dessiner();
         }
         if (numjou === 5) {
             c.width = c.width + 50;
             c.height = c.height + 25;
-            j5 = new Moto(c, 5, (c.width - 5), (c.height - 5), ctx, dath);
-            j5.dessiner();
+            j[4] = new Moto(c, 5, (c.width - 5), (c.height - 5), ctx, dath);
+            j[4].dessiner();
 
-            j1 = new Moto(c, 1, j1.posW, j1.posH, ctx, dath);
-            j1.dessiner();
+            j[0] = new Moto(c, 1, j[0].posW, j[0].posH, ctx, dath);
+            j[0].dessiner();
 
-            j2 = new Moto(c, 2, j2.posW, j2.posH, ctx, dath);
-            j2.dessiner();
+            j[1] = new Moto(c, 2, j[1].posW, j[1].posH, ctx, dath);
+            j[1].dessiner();
 
-            j3 = new Moto(c, 3, j3.posW, j3.posH, ctx, dath);
-            j3.dessiner();
+            j[2] = new Moto(c, 3, j[2].posW, j[2].posH, ctx, dath);
+            j[2].dessiner();
 
-            j4 = new Moto(c, 4, j4.posW, j4.posH, ctx, dath);
-            j4.dessiner();
+            j[3] = new Moto(c, 4, j[3].posW, j[3].posH, ctx, dath);
+            j[3].dessiner();
         }
         if (numjou === 6) {
-            j6 = new Moto(c, 6, 5, 5, ctx, dath);
-            j6.dessiner();
+            j[5] = new Moto(c, 6, 5, 5, ctx, dath);
+            j[5].dessiner();
         }
     }
 }
