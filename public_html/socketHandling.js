@@ -30,16 +30,9 @@ socket.onmessage = function(e){
       //
       // Access it via msg.playerID 
       
-      
-      ajouterJoueur(id[0]);
-      //balancer la position des autres joueurs
-      for(var i = 1; i <= 6; i++){
-              if(id[i].exists){
-                  var lightBike = new Moto(c, i, id.posW, id.posH, ctx, id.couleur);
-              }
-          } 
-  
-      
+      for(var i = 0; i <= id.length(); i++){
+          ajouterJoueur(i, id.w, id.h);
+      }
       
       break;
     case 2:

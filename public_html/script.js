@@ -93,12 +93,7 @@ var dath = "whatever";
 var team = "";
 //var numjou = 0;
 var j = [null, null, null, null, null, null];
-//var j1=null;
-//var j2=null;
-//var j3=null;
-//var j4=null;
-//var j5=null;
-//var j6=null;
+
 
 
 /////////// L I G H T B I K E //////////////////////////////////////////////
@@ -119,7 +114,7 @@ function Moto(canvas, numJoueur, posW, posH, contx, dath) {
 //        posH = (canvas.height / 2);
         bike.src = "styles/j1_up.png";
         bike_prof.src = "styles/j1_prof.gif";
-        angle = 270;
+//        angle = 270;
         team = "fuar";
     }
     else if (numJoueur === 2) {
@@ -127,7 +122,7 @@ function Moto(canvas, numJoueur, posW, posH, contx, dath) {
 //        posH = (canvas.height / 2);
         bike.src = "styles/j2_up.png";
         bike_prof.src = "styles/j2_prof.gif";
-        angle = 90;
+//        angle = 90;
         team = "te";
     }
     else if (numJoueur === 3) {
@@ -135,7 +130,7 @@ function Moto(canvas, numJoueur, posW, posH, contx, dath) {
 //        posH = 5;
         bike.src = "styles/j3_up.png";
         bike_prof.src = "styles/j3_prof.gif";
-        angle = 270;
+//        angle = 270;
         team = "fuar";
     }
     else if (numJoueur === 4) {
@@ -143,7 +138,7 @@ function Moto(canvas, numJoueur, posW, posH, contx, dath) {
 //        posH = canvas.height - 5;
         bike.src = "styles/j4_up.png";
         bike_prof.src = "styles/j4_prof.gif";
-        angle = 90;
+//        angle = 90;
         team = "te";
     }
     else if (numJoueur === 5) {
@@ -151,7 +146,7 @@ function Moto(canvas, numJoueur, posW, posH, contx, dath) {
 //        posH = canvas.height - 5;
         bike.src = "styles/j5_up.png";
         bike_prof.src = "styles/j5_prof.gif";
-        angle = 270;
+//        angle = 270;
         team = "fuar";
     }
     else if (numJoueur === 6) {
@@ -159,7 +154,7 @@ function Moto(canvas, numJoueur, posW, posH, contx, dath) {
 //        posH = 5;
         bike.src = "styles/j6_up.png";
         bike_prof.src = "styles/j6_prof.gif";
-        angle = 90;
+        //angle = 90;
         team = "te";
     }
 
@@ -170,6 +165,7 @@ function Moto(canvas, numJoueur, posW, posH, contx, dath) {
         bike.onload = function () {
             //time to draw... bang bang
             var TO_RADIANS = Math.PI / 180;
+            this.cas(dir);
             contx.save();
             contx.translate(posW, posH);
             contx.rotate(angle * TO_RADIANS);
@@ -191,8 +187,27 @@ function Moto(canvas, numJoueur, posW, posH, contx, dath) {
         setTimeout(function(){
           this = null;  
         }, 3000);
-    }
-
+    };
+    
+    Moto.prototype.cas = function(dir){
+        
+        //clÈ = gauche
+        if(dir==="clÈ")
+            this.angle = 0;
+        
+        //ard = haut
+        if(dir==="ard")
+            this.angle = 90;
+        
+        //deis = droite
+        if(dir==="deis")
+            this.angle = 180;
+        
+        //bun = bas
+        if(dir==="bun")
+            this.angle = 270;
+    };
+    
     /*afficher la photo de profil dans le deuxi√®me canvas.
      * Moto.prototype.displayProfile = function(){
      
@@ -205,76 +220,74 @@ function Moto(canvas, numJoueur, posW, posH, contx, dath) {
 
 
 ////////////////////////////////////////////////
-function ajouterJoueur(numjou) {
+function ajouterJoueur(numjou, posiW, posiH) {
 
-    if (numjou > 6) {
-        window.alert("Il y a d√©j√† 6 joueurs :/ Il vous faut attendre la\n\
-                             prochaine partie.");
-    }
-    else {
-        numjou++;
-        if (numjou === 1) {
-            j[0] = new Moto(c, 1, ((c.width) - 3), (c.height / 2), ctx, dath);
-            j[0].dessiner(); //j1.displayProfile(); 
-            
-        }
-        if (numjou === 2) {
-            j[1] = new Moto(c, 2, 5, (c.height / 2), ctx, dath);
-            j[1].dessiner();
-            
-        }
-        if (numjou === 3) {
-            c.width = c.width + 50;
-            c.height = c.height + 25;
-            j[2] = new Moto(c, 3, ((c.width) - 5), 5, ctx, dath);
-            j[2].dessiner();
-
-            j[0] = new Moto(c, 1, j[0].posW, j[0].posH, ctx, dath);
-            j[0].dessiner();
-
-            j[1] = new Moto(c, 2, j[1].posW, j[1].posH, ctx, dath);
-            j[1].dessiner();
-        }
-        if (numjou === 4) {
-            j[3] = new Moto(c, 4, 5, (c.height - 5), ctx, dath);
-            j[3].dessiner();
-        }
-        if (numjou === 5) {
-            c.width = c.width + 50;
-            c.height = c.height + 25;
-            j[4] = new Moto(c, 5, (c.width - 5), (c.height - 5), ctx, dath);
-            j[4].dessiner();
-
-            j[0] = new Moto(c, 1, j[0].posW, j[0].posH, ctx, dath);
-            j[0].dessiner();
-
-            j[1] = new Moto(c, 2, j[1].posW, j[1].posH, ctx, dath);
-            j[1].dessiner();
-
-            j[2] = new Moto(c, 3, j[2].posW, j[2].posH, ctx, dath);
-            j[2].dessiner();
-
-            j[3] = new Moto(c, 4, j[3].posW, j[3].posH, ctx, dath);
-            j[3].dessiner();
-        }
-        if (numjou === 6) {
-            j[5] = new Moto(c, 6, 5, 5, ctx, dath);
-            j[5].dessiner();
-        }
-    }
+    j[numjou] = new Moto(c, numjou, posiW, posiH, ctx, dath);
+    j[numjou].dessiner();
+    
+//        if (numjou === 1) {
+////            j[0] = new Moto(c, 1, ((c.width) - 3), (c.height / 2), ctx, dath);
+//            j[0] = new Moto(c, 1, )
+//            j[0].dessiner(); //j1.displayProfile(); 
+//            
+//        }
+//        if (numjou === 2) {
+////            j[1] = new Moto(c, 2, 5, (c.height / 2), ctx, dath);
+//            j[1].dessiner();
+//            
+//        }
+//        if (numjou === 3) {
+//            c.width = c.width + 50;
+//            c.height = c.height + 25;
+////            j[2] = new Moto(c, 3, ((c.width) - 5), 5, ctx, dath);
+//            j[2].dessiner();
+//
+////            j[0] = new Moto(c, 1, j[0].posW, j[0].posH, ctx, dath);
+//            j[0].dessiner();
+//
+////            j[1] = new Moto(c, 2, j[1].posW, j[1].posH, ctx, dath);
+//            j[1].dessiner();
+//        }
+//        if (numjou === 4) {
+////            j[3] = new Moto(c, 4, 5, (c.height - 5), ctx, dath);
+//            j[3].dessiner();
+//        }
+//        if (numjou === 5) {
+//            c.width = c.width + 50;
+//            c.height = c.height + 25;
+////            j[4] = new Moto(c, 5, (c.width - 5), (c.height - 5), ctx, dath);
+//            j[4].dessiner();
+//
+////            j[0] = new Moto(c, 1, j[0].posW, j[0].posH, ctx, dath);
+//            j[0].dessiner();
+//
+////            j[1] = new Moto(c, 2, j[1].posW, j[1].posH, ctx, dath);
+//            j[1].dessiner();
+//
+////            j[2] = new Moto(c, 3, j[2].posW, j[2].posH, ctx, dath);
+//            j[2].dessiner();
+//
+////            j[3] = new Moto(c, 4, j[3].posW, j[3].posH, ctx, dath);
+//            j[3].dessiner();
+//        }
+//        if (numjou === 6) {
+////            j[5] = new Moto(c, 6, 5, 5, ctx, dath);
+//            j[5].dessiner();
+//        }
+//    }
 }
 
-function movej1() {
-
-   ctx.clearRect((j1.posW - 16), (j1.posH - 16), 32, 32);
-   j1 = new Moto(c, 1, (j1.posW-4), (j1.posH), ctx, dath);
-    j1.dessiner(); 
-     ctx.beginPath(); 
-     ctx.moveTo((j1.posW+20), (j1.posH));
-     ctx.lineTo(j1.posW, j1.posH);
-     ctx.strokeStyle='blue';
-     ctx.stroke();
-     
-}
+//function movej1() {
+//
+//   ctx.clearRect((j1.posW - 16), (j1.posH - 16), 32, 32);
+//   j1 = new Moto(c, 1, (j1.posW-4), (j1.posH), ctx, dath);
+//    j1.dessiner(); 
+//     ctx.beginPath(); 
+//     ctx.moveTo((j1.posW+20), (j1.posH));
+//     ctx.lineTo(j1.posW, j1.posH);
+//     ctx.strokeStyle='blue';
+//     ctx.stroke();
+//     
+//}
 
 //};
