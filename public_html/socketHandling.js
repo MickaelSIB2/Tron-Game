@@ -6,12 +6,20 @@
 var host = location.origin.replace(/^http/, 'ws');
 var socket = new WebSocket(host);
 var jouer = document.querySelector(".jouer");
+var c = document.querySelector("#myCanvas");
 jouer.addEventListener("click", send, false);
 
 var send = function(){
 	socket.send(JSON.stringify({code: 1}));
 }
 
+//gauche = 37
+//droite = 39
+//haut = 38
+//bas = 40
+c.addEventListener("keypress", function(e){
+    socket.send(JSON.stringify({code: 1} + e.keyCode));
+}, false);
 
 socket.onmessage = function(e){
   var msg = JSON.parse(e.data);
@@ -64,7 +72,10 @@ socket.onmessage = function(e){
       // Should be the same thing than when a player dies
       // But I'm not sure we should do the same thing
       // In both cases.
+      
+      j[id]=null;
       break;
+      
     case 5:
       // WHEN A PLAYER CHANGE ITS DIRECTION
       // INCLUDING ME
@@ -72,6 +83,22 @@ socket.onmessage = function(e){
       // Should be the dead player color/ID/position
       // (whatever identifies it for the client)
       // and the new direction
+      
+      switch (msg.key){
+        case 37:
+            j[id].cas("clé");
+            break;
+        case 39:
+            j[id].cas("deis");
+            break;
+        case 38:
+            j[id].cas("ard");
+            break;
+        case 40:
+            j[id].cas("bun");
+            break;
+        }
+        
       break;
   }
 }
