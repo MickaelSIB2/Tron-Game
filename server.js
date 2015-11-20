@@ -1,6 +1,7 @@
 var WSServer = require('ws').Server
 var express = require('express')
 var http = require('http')
+var player = require("./player.js").Player
 var app = express();
 var port = process.env.PORT || 3000 // To work on Heroku
 var nbMotos;
@@ -35,7 +36,7 @@ var wss = new WSServer({server: server});
  * When the connection with the websocket is closed.
  */
 wss.on("connection", function(ws){
-	var tabID = [[1, false], [2, false], [3, false], [4, false], [5, false], [6, false]];
+	var tabID = {1: false, 2: false, 3: false, 4: false, 5: false, 6: false};
 	
 	  ws.on("message", function(data){
 	    var msg = JSON.parse(data);
@@ -50,14 +51,26 @@ wss.on("connection", function(ws){
 	     */
 	
 	    switch(msg.code){
-	      case 1:   	 
-	    	
+	      case 1:
+
+		var i = 1;
+		while (tabID[i]) {
+			i++;
+   	 	}
 	    	nbMotos += 1;
-	    	tabID [0][1]= true;
-	    	this.playerID = tabID [0][0];
+	    	tabID[i]= new player() ;
+	    	this.playerID = i;
+		var playersToSend = {}
+		for(id in tabID){
+			if(tabID[id]){
+				playersToSend[id] = {x: tabID[id].x, y: tabID[id].y};
+			}
+		}
+console.log("send");
 	    	ws.send(JSON.stringify({
 	                      code: 1,
-	                      playerID: this.playerID
+	                      playerID: this.playerID,
+                              players: playersToSend
 	                     }))
 	        // NEW PLAYER
 	        // WHEN A PLAYER CONNECTS TO THE SERVER
@@ -110,7 +123,7 @@ wss.on("connection", function(ws){
 	  ws.on("close", function(){
 		    // WHEN A PLAYER DISCONNECTS
 			  
-			  nbMoto -= 1;
+			  nbMotos -= 1;
 	  })
 });
 

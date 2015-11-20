@@ -1,87 +1,3 @@
-/*window.onload = function(){
- var id;
- var c = document.querySelector(".myCanvas");
- var ctx = c.getContext("2d");
- var posW = 0; var posH = 0; var dath = "wathever"; var team = "";
- var player;
- var players = [];
- var socket = new WebSocket('ws://localhost:8001', "soap");
- 
- 
- window.addEventListener("keydown", function(event){
- socket.send(event.key);
- });
- 
- socket.onopen = function(){
- };
- 
- socket.onmessage = function(e){
- var data = JSON.parse(e.data);
- switch(data.code){
- // ***************************************************************   5
- case 5:
- // When another player changes direction
- break;
- // ***************************************************************   1
- case 1:
- // When  you connect, first thing the
- // server sends you.
- //
- // Client-side, players are lightbikes.
- player = new Moto(
- c, 
- data.player,
- posW,
- posH,
- ctx,
- dath
- );
- ajouterJoueur(c, ctx);                               
- data.players.forEach(function(element){
- players.push(
- new Moto(
- c,
- element,
- posW,
- posH,
- ctx,
- dath
- )
- );
- players[players.length-1].dessiner();
- });
- break;
- // ***************************************************************   2
- case 2:
- // When a new player enter the game.
- if(player.numJoueur !== data.player){
- var np = new Moto(
- c,
- data.player,
- posW,
- posH,
- ctx,
- dath
- );
- players.push(np);
- np.dessiner();
- }
- break;
- // ***************************************************************   3
- case 3:
- // When a player dies.
- break;
- // ***************************************************************   4
- case 4:
- // When a player disconnects
- var index = players.indexOf(player);
- if(index > -1){
- players.splice(index, 1);
- }
- break;
- }
- }*/
-
 var c = document.getElementById("myCanvas");
 var ctx = c.getContext("2d");
 //    var c1=document.getElementById("yarBike");
@@ -109,15 +25,15 @@ function Moto(canvas, numJoueur, posW, posH, contx, dath) {
     var bike_prof = new Image();
 
 
-    if (numJoueur === 1) {
+    if (numJoueur == 1) {
 //        posW = (canvas.width) - 3;
 //        posH = (canvas.height / 2);
         bike.src = "styles/j1_up.png";
         bike_prof.src = "styles/j1_prof.gif";
-//        angle = 270;
+        angle = 270;
         team = "fuar";
     }
-    else if (numJoueur === 2) {
+    else if (numJoueur == 2) {
 //        posW = 5;
 //        posH = (canvas.height / 2);
         bike.src = "styles/j2_up.png";
@@ -125,7 +41,7 @@ function Moto(canvas, numJoueur, posW, posH, contx, dath) {
 //        angle = 90;
         team = "te";
     }
-    else if (numJoueur === 3) {
+    else if (numJoueur == 3) {
 //        posW = (canvas.width) - 5;
 //        posH = 5;
         bike.src = "styles/j3_up.png";
@@ -133,7 +49,7 @@ function Moto(canvas, numJoueur, posW, posH, contx, dath) {
 //        angle = 270;
         team = "fuar";
     }
-    else if (numJoueur === 4) {
+    else if (numJoueur == 4) {
 //        posW = 5;
 //        posH = canvas.height - 5;
         bike.src = "styles/j4_up.png";
@@ -141,7 +57,7 @@ function Moto(canvas, numJoueur, posW, posH, contx, dath) {
 //        angle = 90;
         team = "te";
     }
-    else if (numJoueur === 5) {
+    else if (numJoueur == 5) {
 //        posW = canvas.width - 5;
 //        posH = canvas.height - 5;
         bike.src = "styles/j5_up.png";
@@ -149,7 +65,7 @@ function Moto(canvas, numJoueur, posW, posH, contx, dath) {
 //        angle = 270;
         team = "fuar";
     }
-    else if (numJoueur === 6) {
+    else if (numJoueur == 6) {
 //        posW = 5;
 //        posH = 5;
         bike.src = "styles/j6_up.png";
@@ -165,7 +81,7 @@ function Moto(canvas, numJoueur, posW, posH, contx, dath) {
         bike.onload = function () {
             //time to draw... bang bang
             var TO_RADIANS = Math.PI / 180;
-            this.cas(dir);
+            //this.cas(dir);
             contx.save();
             contx.translate(posW, posH);
             contx.rotate(angle * TO_RADIANS);
@@ -185,26 +101,27 @@ function Moto(canvas, numJoueur, posW, posH, contx, dath) {
         bike.src="styles/Badaboum!.png";
         this.dessiner();
         setTimeout(function(){
-          this = null;  
+		window.alert("hi!");
+          //this = null;  
         }, 3000);
     };
     
     Moto.prototype.cas = function(dir){
         
         //clé = gauche
-        if(dir==="clé")
+        if(dir=="clé")
             this.angle = 0;
         
         //ard = haut
-        if(dir==="ard")
+        if(dir=="ard")
             this.angle = 90;
         
         //deis = droite
-        if(dir==="deis")
+        if(dir=="deis")
             this.angle = 180;
         
         //bun = bas
-        if(dir==="bun")
+        if(dir=="bun")
             this.angle = 270;
     };
     
