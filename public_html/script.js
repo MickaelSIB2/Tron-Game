@@ -75,7 +75,7 @@ function Moto(canvas, numJoueur, posW, posH, contx, dath) {
     }
     else if (numJoueur == 6) {
 //        posW = 5;
-//        posH = 5;
+//        posH = 5; 
         bike.src = "styles/j6_up.png";
         bike_prof.src = "styles/j6_prof.gif";
         //angle = 90;

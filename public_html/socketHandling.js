@@ -15,7 +15,7 @@ var send = function(){
 
 jouer.addEventListener("click", send, true);
 
-
+ 
 
 socket.onmessage = function(e){
   var msg = JSON.parse(e.data);
