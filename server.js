@@ -3,7 +3,7 @@ var express = require('express')
 var http = require('http')
 var app = express();
 var port = process.env.PORT || 3000 // To work on Heroku
-
+var nbMotos;
 // -------------------------------------------------- Create the Server itself
 
 /*
@@ -35,10 +35,8 @@ var wss = new WSServer({server: server});
  * When the connection with the websocket is closed.
  */
 wss.on("connection", function(ws){
-	var nbMotos += 1;
 	var tabID = [[1, false], [2, false], [3, false], [4, false], [5, false], [6, false]];
 	
-	while (nbMoto > 0){	
 	  ws.on("message", function(data){
 	    var msg = JSON.parse(data);
 	    var dataToSend;
@@ -53,7 +51,8 @@ wss.on("connection", function(ws){
 	
 	    switch(msg.code){
 	      case 1:   	 
-	    	 
+	    	
+	    	nbMotos += 1;
 	    	tabID [0][1]= true;
 	    	this.playerID = tabID [0][0];
 	    	ws.send(JSON.stringify({
@@ -113,7 +112,6 @@ wss.on("connection", function(ws){
 			  
 			  nbMoto -= 1;
 	  })
-	}
 });
 
 // ------------------------------------------------------ Define WSS functions
