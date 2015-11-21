@@ -116,8 +116,8 @@ function Moto(canvas, numJoueur, posW, posH, contx, dath) {
     
     Moto.prototype.cas = function(dir){
         
-        //clé = gauche
-        if(dir=="clé")
+        //clï¿½ = gauche
+        if(dir=="clï¿½")
             this.angle = 0;
         
         //ard = haut
@@ -148,7 +148,7 @@ function Moto(canvas, numJoueur, posW, posH, contx, dath) {
 
 ////////////////////////////////////////////////
 
-//convertir l'arrivée des données en pourcentage en coordonnées de canvas.
+//convertir l'arrivï¿½e des donnï¿½es en pourcentage en coordonnï¿½es de canvas.
 	function toX(weedz){
 		x = (c.width*weedz)/100;
 		return (x);

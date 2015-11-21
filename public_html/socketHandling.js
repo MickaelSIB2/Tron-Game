@@ -8,7 +8,7 @@ var socket = new WebSocket(host);
 var jouer = document.querySelector(".jouer");
 var c = document.querySelector("#myCanvas");
 var allPlayers = {};
-var idjoueur;
+var idjoueur; 
 var send = function(){
 	socket.send(JSON.stringify({code: 1}));
 }
