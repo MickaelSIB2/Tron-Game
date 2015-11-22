@@ -10,14 +10,16 @@
         <script src="socketHandling.js" defer="true"></script>
 
     </head>
-    <body>
+    <body onload="init();">
         <h1>What a day what a lovely day !!<h1>
             
                 <!-- deuxième canvas pour la moto de profil -->
                 <!-- <aside><canvas id="yarBike" width="250" height="125"></canvas></aside> -->
                 <div>
                     <button class="jouer">Je veux jouer !</button>
-                    <button id="test" onclick="movej1();" >Test</button>
+                    <button id="test" onclick="everyoneGO();" >Test</button>
+					<button id="stopButton">STOP</button>
+					<button id="startButton">GO</button>
                 </div>
            
             

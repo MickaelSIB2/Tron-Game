@@ -42,7 +42,7 @@ socket.onmessage = function(e){
 	
       for(id in allPlayers){
 	console.log(id, allPlayers[id].x);
-	ajouterJoueur(id, allPlayers[id].x, allPlayers[id].y)
+	ajouterJoueur(id, allPlayers[id].x, allPlayers[id].y, "cle");
 	}      
       break;
     case 2:
@@ -54,7 +54,7 @@ socket.onmessage = function(e){
       // fine if The client already handles things like
       // colors)
       
-      ajouterJoueur(id, c.width/2, c.height/2);
+      ajouterJoueur(id, allPlayers[id].x, allPlayers[id].y, "cle");
       
       break;
     case 3:
@@ -65,6 +65,8 @@ socket.onmessage = function(e){
       // or whatever identifies it on the client.
       
       j[id].laMuerta();
+	  setTimeout(function(){
+	  j[id] = null;}, 1500);
       
       break;
     case 4:
@@ -86,20 +88,20 @@ socket.onmessage = function(e){
       // (whatever identifies it for the client)
       // and the new direction
       
-      switch (msg.key){
-        case 37:
-            j[id].cas("clé");
-            break;
-        case 39:
-            j[id].cas("deis");
-            break;
-        case 38:
-            j[id].cas("ard");
-            break;
-        case 40:
-            j[id].cas("bun");
-            break;
-        }
+      // switch (msg.key){
+        // case 37:
+            // j[id].cas("clé");
+            // break;
+        // case 39:
+            // j[id].cas("deis");
+            // break;
+        // case 38:
+            // j[id].cas("ard");
+            // break;
+        // case 40:
+            // j[id].cas("bun");
+            // break;
+        // }
         
       break;
   }
