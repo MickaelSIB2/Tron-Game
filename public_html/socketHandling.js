@@ -91,21 +91,20 @@ socket.onmessage = function(e){
       // (whatever identifies it for the client)
       // and the new direction
       
-      // switch (msg.key){
-        // case 37:
-            // j[id].cas("clé");
-            // break;
-        // case 39:
-            // j[id].cas("deis");
-            // break;
-        // case 38:
-            // j[id].cas("ard");
-            // break;
-        // case 40:
-            // j[id].cas("bun");
-            // break;
-        // }
-        
+       switch (msg.key){
+         case 37:
+             j[id].direction = "clé";
+             break;
+         case 39:
+             j[id].direction = "deis";
+             break;
+         case 38:
+             j[id].direction = "ard";
+             break;
+         case 40:
+             j[id].direction = "bun";
+             break;
+       }
       break;
   }
 }

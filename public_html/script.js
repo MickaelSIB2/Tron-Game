@@ -181,30 +181,30 @@ function Moto(canvas, numJoueur, posW, posH, contx, direction) {
 	
 	
 	
-	// Moto.prototype.goGoGO = function (){
-			
-			// if(direction=="ard"){
-				// ctx.clearRect(posW, posH, 32, 32);
-				// posH -= 3;
-			// }
-			
-			// if(direction=="deis"){
-				// ctx.clearRect(posW, posH, 32, 32);
-				// posW += 3;
-			// }
-			
-			// if(direction=="bun"){
-				// ctx.clearRect(posW, posH, 32, 32);
-				// posH += 3;
-			// }
-			
-			// if(direction=="cle"){
-				// ctx.clearRect(posW, posH, 32, 32);
-				// posW -= 3;
-			// }
-			// this.dessiner();
-		// };
-	// }
+ Moto.prototype.goGoGO = function (){
+                        
+                        if(direction = "ard"){
+                                 ctx.clearRect(posW, posH, 32, 32);
+                                 posH -= 3;
+                         }
+                        
+                         if(direction=="deis"){
+                                 ctx.clearRect(posW, posH, 32, 32);
+                                 posW += 3;
+                         }
+                        
+                         if(direction=="bun"){
+                                 ctx.clearRect(posW, posH, 32, 32);
+                                 posH += 3;
+                         }
+                        
+                         if(direction=="cle"){
+                                 ctx.clearRect(posW, posH, 32, 32);
+                                 posW -= 3;
+                         }
+                         this.dessiner();
+                 };
+         }
 		
 	
     /*afficher la photo de profil dans le deuxième canvas.
@@ -268,31 +268,31 @@ function everyoneGO(){
 	}
 }
 	
-	// function goGoGO(numjou){
+	 //function goGoGO(numjou){
 		
-			// if(j[numjou].direction=="ard"){
-				// ctx.clearRect(j[numjou].posW, j[numjou].posH, 32, 32);
-				// j[numjou].posH -= 3;	
-			// }
-			
-			// if(j[numjou].direction=="deis"){
-				// ctx.clearRect(j[numjou].posW, j[numjou].posH, 32, 32);
-				// j[numjou].posW += 3;
-			// }
-			
-			// if(j[numjou].direction=="bun"){
-				// ctx.clearRect(j[numjou].posW, j[numjou].posH, 32, 32);
-				// j[numjou].posH += 3;
-			// }
-			
-			// if(j[numjou].direction=="cle"){
-				// ctx.clearRect(j[numjou].posW, j[numjou].posH, 32, 32);
-				// j[numjou].posW -= 3;
-			// }
-			
-			// j[numjou] = new Moto(c, numjou, j[numjou].posW, j[numjou].posH, ctx, j[numjou].direction);
-			// j[numjou].dessiner();
-		// }
+                         //if(j[numjou].direction=="ard"){
+                                 //ctx.clearRect(j[numjou].posW, j[numjou].posH, 32, 32);
+                                 //j[numjou].posH -= 3;	
+                         //}
+                        
+                         //if(j[numjou].direction=="deis"){
+                                 //ctx.clearRect(j[numjou].posW, j[numjou].posH, 32, 32);
+                                 //j[numjou].posW += 3;
+                         //}
+                        
+                         //if(j[numjou].direction=="bun"){
+                                 //ctx.clearRect(j[numjou].posW, j[numjou].posH, 32, 32);
+                                 //j[numjou].posH += 3;
+                         //}
+                        
+                         //if(j[numjou].direction=="cle"){
+                                 //ctx.clearRect(j[numjou].posW, j[numjou].posH, 32, 32);
+                                 //j[numjou].posW -= 3;
+                         //}
+                        
+                         //j[numjou] = new Moto(c, numjou, j[numjou].posW, j[numjou].posH, ctx, j[numjou].direction);
+                         //j[numjou].dessiner();
+                 //}
 	
 	
 	

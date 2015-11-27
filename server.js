@@ -81,9 +81,9 @@ wss.on("connection", function(ws){
                     }
                   })
                 } else {
-                  ws.send(JSON.stringify{
-                    code: 4
-                  })
+                  ws.send(JSON.stringify({
+                    code: -1 // Can't connect
+                  }))
                 }
 	        // NEW PLAYER
 	        // WHEN A PLAYER CONNECTS TO THE SERVER
