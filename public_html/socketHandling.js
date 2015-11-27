@@ -42,7 +42,7 @@ socket.onmessage = function(e){
 	
       for(id in allPlayers){
 	console.log(id, allPlayers[id].x);
-	ajouterJoueur(id, allPlayers[id].x, allPlayers[id].y, "cle");
+	ajouterJoueur(id, allPlayers[id].x, allPlayers[id].y, "ard");
 	}      
       break;
     case 2:
@@ -54,7 +54,7 @@ socket.onmessage = function(e){
       // fine if The client already handles things like
       // colors)
       
-      ajouterJoueur(id, allPlayers[id].x, allPlayers[id].y, "cle");
+      //ajouterJoueur(id, allPlayers[id].x, allPlayers[id].y, "ard");
       
       break;
     case 3:

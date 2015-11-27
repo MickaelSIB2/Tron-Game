@@ -30,9 +30,9 @@ document.getElementById("stopButton").onclick = function() {
         clearInterval(timerID);
     }
 	
-// document.getElementById("startButton").onclick = function(){
-	// timerID = setInterval(everyoneGO, 50);
-// }	
+document.getElementById("startButton").onclick = function(){
+	timerID = setInterval(everyoneGO, 50);
+}	
 	
 	
 };
@@ -43,11 +43,11 @@ document.getElementById("stopButton").onclick = function() {
 function Moto(canvas, numJoueur, posW, posH, contx, direction) {
     this.canvas = canvas;
     this.numJoueur = numJoueur;
+	this.posW = posW;
     this.posH = posH;
-    this.posW = posW;
     this.contx = contx;
-    var dath;
-	var angle = 0;
+    this.dath;
+	this.angle = 0;
 	this.direction = direction;
     var bike = new Image();
     var bike_prof = new Image();
@@ -55,8 +55,7 @@ function Moto(canvas, numJoueur, posW, posH, contx, direction) {
 
 
     if (numJoueur == 1) {
-
-        bike.src = "styles/j1_up.png";
+      
         bike_prof.src = "styles/j1_prof.gif";
         //angle = 270;
         team = "fuar";
@@ -65,7 +64,7 @@ function Moto(canvas, numJoueur, posW, posH, contx, direction) {
     }
     else if (numJoueur == 2) {
 
-        bike.src = "styles/j2_up.png";
+
         bike_prof.src = "styles/j2_prof.gif";
 //        angle = 90;
         team = "te";
@@ -74,7 +73,7 @@ function Moto(canvas, numJoueur, posW, posH, contx, direction) {
     }
     else if (numJoueur == 3) {
 
-        bike.src = "styles/j3_up.png";
+
         bike_prof.src = "styles/j3_prof.gif";
 //        angle = 270;
         team = "fuar";
@@ -83,7 +82,7 @@ function Moto(canvas, numJoueur, posW, posH, contx, direction) {
     }
     else if (numJoueur == 4) {
 
-        bike.src = "styles/j4_up.png";
+
         bike_prof.src = "styles/j4_prof.gif";
 //        angle = 90;
         team = "te";
@@ -92,7 +91,7 @@ function Moto(canvas, numJoueur, posW, posH, contx, direction) {
     }
     else if (numJoueur == 5) {
 
-        bike.src = "styles/j5_up.png";
+
         bike_prof.src = "styles/j5_prof.gif";
 //        angle = 270;
         team = "fuar";
@@ -101,7 +100,7 @@ function Moto(canvas, numJoueur, posW, posH, contx, direction) {
     }
     else if (numJoueur == 6) {
 
-        bike.src = "styles/j6_up.png";
+
         bike_prof.src = "styles/j6_prof.gif";
         //angle = 90;
         team = "te";
@@ -109,44 +108,51 @@ function Moto(canvas, numJoueur, posW, posH, contx, direction) {
 		
     };
 
-	 Moto.prototype.cas = function (){
-        
-		var haut = "ard";
-		var droite = "deis";
-		var bas = "bun";
+	
+	
+	
+    Moto.prototype.dessiner = function () {
 		
-         // ard = haut
-        if(direction == "ard")
-           angle = 0;
+		// ard = haut
+        if(direction == "ard"){
+           bike.src = "styles/j" + numJoueur + "_up.png";
+			bike.onload = function () {
+				//time to draw... bang bang
+				contx.drawImage(bike, posW, posH);		
+			}
+		}
         
          // deis = droite
-        if(this.direction == "deis")
-            angle = 90;
-        
+        if(direction == "deis"){
+			 bike.src = "styles/j" + numJoueur + "_right.png";
+			bike.onload = function () {
+				//time to draw... bang bang
+				contx.drawImage(bike, posW, posH);	
+			}
+		}
+			
          // bun = bas
-        if(direction == "bun")
-            angle = 180;
+        if(direction == "bun"){
+             bike.src = "styles/j" + numJoueur + "_down.png";
+			bike.onload = function () {
+				//time to draw... bang bang
+				contx.drawImage(bike, posW, posH);	
+			}
+		}
 		
 		  // clé = gauche
-        if(direction == "cle")
-            angle = 270;
-		
-		return angle;
+        if(direction == "cle"){
+             bike.src = "styles/j" + numJoueur + "_left.png";
+			bike.onload = function () {
+				//time to draw... bang bang
+				contx.drawImage(bike, posW, posH);	
+			}
+		}
+        
     };
-
-    Moto.prototype.dessiner = function () {
-			angle = this.cas(direction);
-        bike.onload = function () {
-            //time to draw... bang bang
-            var TO_RADIANS = Math.PI / 180;
-            contx.save();
-            contx.translate(posW, posH);
-            contx.rotate(angle * TO_RADIANS);
-            contx.drawImage(bike, -(bike.width / 2), -(bike.width / 2));
-            contx.restore();
-			
-        }
-    };
+	
+	
+	
 	
     Moto.prototype.setPosW = function (width) {
         this.posW = width;
@@ -156,46 +162,49 @@ function Moto(canvas, numJoueur, posW, posH, contx, direction) {
         this.posH = height;
     };
     
+	
+	
+	
     Moto.prototype.laMuerta = function (){
-		contx.clearRect((posW-16), (posH-16), 32, 32);
+		contx.clearRect(posW, posH, 32, 32);
+		contx.clearRect(posW, posH, 32, 32);
         bike.src="styles/Badaboum!.png";
-        this.dessiner();
+        bike.onload = function(){
+			contx.drawImage(bike, posW, posH);
         setTimeout(function(){
-          contx.clearRect((posW-16), (posH-16), 32, 32);
+          contx.clearRect(posW, posH, 32, 32);
         }, 1250);
+		}
     };
+	
+}
+	
+	
 	
 	// Moto.prototype.goGoGO = function (){
 			
+			// if(direction=="ard"){
+				// ctx.clearRect(posW, posH, 32, 32);
+				// posH -= 3;
+			// }
+			
+			// if(direction=="deis"){
+				// ctx.clearRect(posW, posH, 32, 32);
+				// posW += 3;
+			// }
+			
+			// if(direction=="bun"){
+				// ctx.clearRect(posW, posH, 32, 32);
+				// posH += 3;
+			// }
+			
 			// if(direction=="cle"){
-				// ctx.clearRect((posW - 16), (posH - 16), 32, 32);
-				// j[numJoueur] = new Moto(c, numJoueur, posW-3), posH, ctx, direction);
-				// this.dessiner();
+				// ctx.clearRect(posW, posH, 32, 32);
+				// posW -= 3;
 			// }
-			
-			// if(j[numJoueur].direction=="deis"){
-				// ctx.clearRect((j[numJoueur].posW - 16), (j[numJoueur].posH - 16), 32, 32);
-				// j[numJoueur] = new Moto(c, numJoueur, (j[numJoueur].posW+3), j[numJoueur].posH, ctx, j[numJoueur].direction);
-				// j[numJoueur].dessiner();
-			// }
-			
-			// if(j[numJoueur].direction=="ard"){
-				// ctx.clearRect((j[numJoueur].posW - 16), (j[numJoueur].posH - 16), 32, 32);
-				// j[numJoueur] = new Moto(c, numJoueur, j[numJoueur].posW, (j[numJoueur].posH-3), ctx, j[numJoueur].direction);
-				// j[numJoueur].dessiner();
-			// }
-			
-			// if(j[numJoueur].direction=="bun"){
-				// ctx.clearRect((j[numJoueur].posW - 16), (j[numJoueur].posH - 16), 32, 32);
-				// j[i] = new Moto(c, numJoueur, j[numJoueur].posW, (j[numJoueur].posH+3), ctx, j[numJoueur].direction);
-				// j[numJoueur].dessiner();
-			// }
-
+			// this.dessiner();
 		// };
-	
-	
-		
-	}
+	// }
 		
 	
     /*afficher la photo de profil dans le deuxième canvas.
@@ -215,60 +224,75 @@ function Moto(canvas, numJoueur, posW, posH, contx, direction) {
 	function toX(weedz){
 		x = (c.width*weedz)/100;
 		return (x);
-    };
+    	};
 	function toY(hait){
 		y = (c.height*hait)/100;
 		return (y);
-	}
+	};
 	
 function ajouterJoueur(numjou, posiW, posiH, direction) {
 	var x = toX(posiW);
 	var y = toY(posiH);
     j[numjou] = new Moto(c, numjou, x, y, ctx, direction);
     j[numjou].dessiner();
-}
-
+};
 
 function everyoneGO(){
-	for(var i = 1; i <= 6; i++){
+	for(var i = 0; i <= 6; i++){
 		if(j[i] != null){
-			goGoGO(i);
-			console.log('hi ' + i);
+			// goGoGO(1); goGoGO(2);
+			if(j[i].direction=="ard"){
+				ctx.clearRect(j[i].posW, j[i].posH, 32, 32);
+				//j[i].posH -= 3
+			}
+			
+			if(j[i].direction=="deis"){
+				ctx.clearRect(j[i].posW, j[i].posH, 32, 32);
+				j[i].posW += 3;
+			}
+			
+			if(j[i].direction=="bun"){
+				ctx.clearRect(j[i].posW, j[i].posH, 32, 32);
+				j[i].posH += 3;
+			}
+			
+			if(j[i].direction=="cle"){
+				ctx.clearRect(j[i].posW, j[i].posH, 32, 32);
+				j[i].posW -= 3;
+			}
+			
+			j[i] = new Moto(c, i, j[i].posW, (j[i].posH-3), ctx, j[i].direction);
+			//ajouterJoueur(i, j[i].posW, j[i].posH, j[i].direction);
+			j[i].dessiner();
 		}
 	}
 }
 	
-	function goGoGO(numJoueur){
-
+	// function goGoGO(numjou){
+		
+			// if(j[numjou].direction=="ard"){
+				// ctx.clearRect(j[numjou].posW, j[numjou].posH, 32, 32);
+				// j[numjou].posH -= 3;	
+			// }
 			
-			if(j[numJoueur].direction=="cle"){
-				//console.log('go  '+numJoueur)
-				ctx.clearRect((j[numJoueur].posW - 16), (j[numJoueur].posH - 16), 32, 32);
-				j[numJoueur] = new Moto(c, numJoueur, (j[numJoueur].posW-3), j[numJoueur].posH, ctx, j[numJoueur].direction);
-				j[numJoueur].dessiner();
-			}
+			// if(j[numjou].direction=="deis"){
+				// ctx.clearRect(j[numjou].posW, j[numjou].posH, 32, 32);
+				// j[numjou].posW += 3;
+			// }
 			
-			if(j[numJoueur].direction=="deis"){
-				ctx.clearRect((j[numJoueur].posW - 16), (j[numJoueur].posH - 16), 32, 32);
-				j[numJoueur] = new Moto(c, numJoueur, (j[numJoueur].posW+3), j[numJoueur].posH, ctx, j[numJoueur].direction);
-				j[numJoueur].dessiner();
-			}
+			// if(j[numjou].direction=="bun"){
+				// ctx.clearRect(j[numjou].posW, j[numjou].posH, 32, 32);
+				// j[numjou].posH += 3;
+			// }
 			
-			if(j[numJoueur].direction=="ard"){
-				ctx.clearRect((j[numJoueur].posW - 16), (j[numJoueur].posH - 16), 32, 32);
-				j[numJoueur] = new Moto(c, numJoueur, j[numJoueur].posW, (j[numJoueur].posH-3), ctx, j[numJoueur].direction);
-				j[numJoueur].dessiner();
-			}
+			// if(j[numjou].direction=="cle"){
+				// ctx.clearRect(j[numjou].posW, j[numjou].posH, 32, 32);
+				// j[numjou].posW -= 3;
+			// }
 			
-			if(j[numJoueur].direction=="bun"){
-				ctx.clearRect((j[numJoueur].posW - 16), (j[numJoueur].posH - 16), 32, 32);
-				j[numJoueur] = new Moto(c, numJoueur, j[numJoueur].posW, (j[numJoueur].posH+3), ctx, j[numJoueur].direction);
-				j[numJoueur].dessiner();
-			}
-			
-			if (j[numJoueur] == null)
-				console.log("hi");
-		}
+			// j[numjou] = new Moto(c, numjou, j[numjou].posW, j[numjou].posH, ctx, j[numjou].direction);
+			// j[numjou].dessiner();
+		// }
 	
 	
 	
