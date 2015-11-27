@@ -5,6 +5,7 @@ var player = require("./player.js").Player
 var app = express();
 var port = process.env.PORT || 3000 // To work on Heroku
 var nbMotos;
+var tabID = {1: false, 2: false, 3: false, 4: false, 5: false, 6: false};
 // -------------------------------------------------- Create the Server itself
 
 /*
@@ -36,7 +37,6 @@ var wss = new WSServer({server: server});
  * When the connection with the websocket is closed.
  */
 wss.on("connection", function(ws){
-	var tabID = {1: false, 2: false, 3: false, 4: false, 5: false, 6: false};
 	
 	  ws.on("message", function(data){
 	    var msg = JSON.parse(data);
@@ -52,26 +52,39 @@ wss.on("connection", function(ws){
 	
 	    switch(msg.code){
 	      case 1:
-
 		var i = 1;
 		while (tabID[i]) {
 			i++;
    	 	}
-	    	nbMotos += 1;
-	    	tabID[i]= new player() ;
-	    	this.playerID = i;
-		var playersToSend = {}
-		for(id in tabID){
-			if(tabID[id]){
-				playersToSend[id] = {x: tabID[id].x, y: tabID[id].y};
-			}
-		}
-console.log("send");
-	    	ws.send(JSON.stringify({
-	                      code: 1,
-	                      playerID: this.playerID,
-                              players: playersToSend
-	                     }))
+                if(i <= 6){
+                  nbMotos += 1;
+                  tabID[i]= new player() ;
+                  this.playerID = i;
+                  var playersToSend = {}
+                  for(id in tabID){
+                          if(tabID[id]){
+                                  playersToSend[id] = {x: tabID[id].x, y: tabID[id].y};
+                          }
+                  }
+
+                  ws.send(JSON.stringify({
+                                code: 1,
+                                playerID: this.playerID,
+                                players: playersToSend
+                               }))
+                  wss.broadcast({
+                    code: 2,
+                    player: {
+                      id: this.playerID,
+                      x: tabID[this.playerID].x,
+                      y: tabID[this.playerID].y
+                    }
+                  })
+                } else {
+                  ws.send(JSON.stringify{
+                    code: 4
+                  })
+                }
 	        // NEW PLAYER
 	        // WHEN A PLAYER CONNECTS TO THE SERVER
 	        //
@@ -122,8 +135,8 @@ console.log("send");
 	  
 	  ws.on("close", function(){
 		    // WHEN A PLAYER DISCONNECTS
-			  
-			  nbMotos -= 1;
+		    tabID[this.playerID] = false;
+		    nbMotos -= 1;
 	  })
 });
 
@@ -139,3 +152,12 @@ wss.broadcast = function broadcast(data) {
 // PUT THEM HERE.
 // You also can put them in a separate file and import them if you prefer
 // Having your own file.
+Object.size = function(obj) {
+      var size = 0, key;
+      for (key in obj) {
+                if (obj.hasOwnProperty(key)) size++;
+                    
+      }
+          return size;
+
+};

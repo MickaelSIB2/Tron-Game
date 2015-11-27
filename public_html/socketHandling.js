@@ -53,8 +53,11 @@ socket.onmessage = function(e){
       // (or just saying that a new player is here could be
       // fine if The client already handles things like
       // colors)
-      
-      //ajouterJoueur(id, allPlayers[id].x, allPlayers[id].y, "ard");
+      console.log(idjoueur);
+      console.log(msg.player.id)
+      if(msg.player.id != idjoueur){
+        ajouterJoueur(msg.player.id, msg.player.x, msg.player.y, "ard");
+      }
       
       break;
     case 3:
