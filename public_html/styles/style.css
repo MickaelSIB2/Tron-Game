@@ -10,4 +10,33 @@
 
 body {
     background-color: #444444;
+	text-align:center;
+}
+
+form {
+		font-size:medium;
+		border-collapse:collapse;
+		border-color:green;
+		text-align:center;
+}
+
+table{
+	margin-left:35%;
+	margin-bottom:30px;
+	border-collapse:collapse;
+	border-style:solid;
+	border-color:green;
+}
+
+table td:hover {
+	background-color:green;
+}
+
+table td:active {
+	border-style:solid;
+	border-color:blue;
+}
+
+div {
+		font-size:medium;
 }

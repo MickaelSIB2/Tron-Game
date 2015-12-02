@@ -5,15 +5,14 @@
 
 var host = location.origin.replace(/^http/, 'ws');
 var socket = new WebSocket(host);
-var jouer = document.querySelector(".jouer");
 var c = document.querySelector("#myCanvas");
 var allPlayers = {};
 var idjoueur; 
 var send = function(){
-	socket.send(JSON.stringify({code: 1}));
+	socket.send(JSON.stringify({code: 1}, pseudoUser));
 }
 
-jouer.addEventListener("click", send, true);
+//jouer.addEventListener("click", send, true);
 
  
 
@@ -36,14 +35,12 @@ socket.onmessage = function(e){
       
       allPlayers = msg.players;
       idjoueur = id;
-      //ajouterJoueur(idjoueur, (c.width/2-16), c.height/2);
 
 	console.log(JSON.stringify(msg));
 	
       for(id in allPlayers){
-	console.log(id, allPlayers[id].x);
-	ajouterJoueur(id, allPlayers[id].x, allPlayers[id].y, "ard");
-	}      
+		ajouterJoueur(id, allPlayers[id].x, allPlayers[id].y, "cle");
+	 }      
       break;
     case 2:
       // WHEN A NEW PLAYER, WHICH IS NOT ME, ENTERS THE GAME.
@@ -53,8 +50,8 @@ socket.onmessage = function(e){
       // (or just saying that a new player is here could be
       // fine if The client already handles things like
       // colors)
-      console.log(idjoueur);
-      console.log(msg.player.id)
+      // console.log(idjoueur);
+      // console.log(msg.player.id)
       if(msg.player.id != idjoueur){
         ajouterJoueur(msg.player.id, msg.player.x, msg.player.y, "ard");
       }
