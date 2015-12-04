@@ -9,7 +9,7 @@ var c = document.querySelector("#myCanvas");
 var allPlayers = {};
 var idjoueur; 
 var send = function(){
-	socket.send(JSON.stringify({code: 1}, pseudoUser));
+	socket.send(JSON.stringify({code: 1, pseudo: pseudoUser}));
 }
 
 //jouer.addEventListener("click", send, true);
@@ -18,7 +18,7 @@ var send = function(){
 
 socket.onmessage = function(e){
   var msg = JSON.parse(e.data);
-  var id = msg.playerID;
+  var idJoueur;
   // Every piece of data are accessibles via msg.something
   switch (msg.code){
     case 1:
@@ -34,13 +34,16 @@ socket.onmessage = function(e){
       // Access it via msg.playerID 
       
       allPlayers = msg.players;
-      idjoueur = id;
+      var id;
+
+	idJoueur = msg.player.playerID;
 
 	console.log(JSON.stringify(msg));
 	
-      for(id in allPlayers){
-		ajouterJoueur(id, allPlayers[id].x, allPlayers[id].y, "cle");
-	 }      
+	ajouterMONJoueur(idJoueur, msg.player.x, msg.player.y, "cle");
+      //for(id in allPlayers){
+	//	ajouterMONJoueur(id, allPlayers[id].x, allPlayers[id].y, "cle");
+	// }      
       break;
     case 2:
       // WHEN A NEW PLAYER, WHICH IS NOT ME, ENTERS THE GAME.
@@ -53,7 +56,7 @@ socket.onmessage = function(e){
       // console.log(idjoueur);
       // console.log(msg.player.id)
       if(msg.player.id != idjoueur){
-        ajouterJoueur(msg.player.id, msg.player.x, msg.player.y, "ard");
+        ajouterAutreJoueur(msg.player.id, msg.player.x, msg.player.y, "ard");
       }
       
       break;
@@ -88,20 +91,20 @@ socket.onmessage = function(e){
       // (whatever identifies it for the client)
       // and the new direction
       
-       switch (msg.key){
-         case 37:
-             j[id].direction = "clé";
-             break;
-         case 39:
-             j[id].direction = "deis";
-             break;
-         case 38:
-             j[id].direction = "ard";
-             break;
-         case 40:
-             j[id].direction = "bun";
-             break;
-       }
-      break;
+       // switch (msg.key){
+         // case 37:
+             // j[id].direction = "clé";
+             // break;
+         // case 39:
+             // j[id].direction = "deis";
+             // break;
+         // case 38:
+             // j[id].direction = "ard";
+             // break;
+         // case 40:
+             // j[id].direction = "bun";
+             // break;
+       // }
+      // break;
   }
 }

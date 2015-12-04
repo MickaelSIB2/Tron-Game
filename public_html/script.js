@@ -1,13 +1,14 @@
 var j; var ctx; var c;
 	var dathUser = localStorage.getItem("dath");
 	var pseudoUser = localStorage.getItem("pseudonyme");
-	var bleu 		= ["j1_left.jpg", true]; 
-	var jaune 	= ["j2_left.jpg", true]; 
-	var violet 		= ["j3_left.png", true];
-	var rouge 	= ["j4_left.jpg", true];
-	var vert 		= ["j5_left.png", true];
-	var orange 	= ["j6_left.png", true];
+	var bleue 		= [true, "j1_left.png", "j1_up.png", "j1_right.png", "j1_down.png"]; 
+	var jaune 	= [true, "j2_left.png", "j2_up.png", "j2_right.png", "j2_down.png"]; 
+	var violette 		= [true, "j3_left.png", "j3_up.png", "j3_right.png", "j3_down.png"];
+	var rouge 	= [true, "j4_left.png", "j4_up.png", "j4_right.png", "j4_down.png" ];
+	var verte 		= [true, "j5_left.png", "j5_up.png", "j5_right.png", "j5_down.png" ];
+	var orange 	= [true, "j6_left.png", "j6_up.png", "j6_right.png", "j6_down.png" ];
 
+	var allBikes = [bleue, jaune, violette, rouge, verte, orange];
 
 
 function init(){
@@ -47,7 +48,7 @@ document.getElementById("startButton").onclick = function(){
 
 
 /////////// L I G H T B I K E //////////////////////////////////////////////
-function Moto(numJoueur, posW, posH, direction, pseudo, moto) {
+function Moto(numJoueur, posW, posH, direction, moto, pseudo) {
     this.canvas = c; 
     this.numJoueur = numJoueur;
 	this.posW = posW;
@@ -58,43 +59,8 @@ function Moto(numJoueur, posW, posH, direction, pseudo, moto) {
     this.dath;
 	this.direction = direction;
     this.bike = new Image();
-
-    if (moto == bleu) {
-		
-        team = "fuar";
-		dath = "blue";
-		
-    }
-    else if (numJoueur == 2) {
-
-        team = "te";
-		this.dath = "yellow";
-		
-    }
-    else if (numJoueur == 3) {
-
-        team = "fuar";
-		this.dath = "purple";
-		
-    }
-    else if (numJoueur == 4) {
-
-        team = "te";
-		this.dath = "red";
-		
-    }
-    else if (numJoueur == 5) {
-
-        team = "fuar";
-		this.dath = "green";
-		
-    }
-    else if (numJoueur == 6) {
-
-        team = "te";
-		this.dath = "orange";
-		
-    };
+	this.moto = moto;
+	
 
 	}
 	
@@ -103,19 +69,19 @@ function Moto(numJoueur, posW, posH, direction, pseudo, moto) {
 		
 		// ard = haut
         if(this.direction == "ard")
-           this.bike.src =this.moto[0];
+           this.bike.src =this.moto[2];
         
          // deis = droite
         if(this.direction == "deis")
-			 this.bike.src = "styles/j" + this.numJoueur + "_right.png";
+			 this.bike.src = this.moto[3];
 			
          // bun = bas
         if(this.direction == "bun")
-             this.bike.src = "styles/j" + this.numJoueur + "_down.png";
+             this.bike.src = this.moto[4];
 		
 		  // clé = gauche
         if(this.direction == "cle")
-             this.bike.src = "styles/j" + this.numJoueur + "_left.png";
+             this.bike.src = this.moto[1];
 			
 		this.bike.onload = function () 
 				//time to draw... bang bang
@@ -140,7 +106,7 @@ function Moto(numJoueur, posW, posH, direction, pseudo, moto) {
     Moto.prototype.laMuerta = function (){
 		this.ctxt.clearRect(this.posW, this.posH, 32, 32);
 		this.ctxt.clearRect(this.posW, this.posH, 32, 32);
-        this.bike.src="styles/Badaboum!.png";
+        this.bike.src="styles/KABOUM!.png";
         this.bike.onload = function(){
 			cthis.ctxt.drawImage(bike, this.posW, this.posH);
         setTimeout(function(){
@@ -190,12 +156,28 @@ function Moto(numJoueur, posW, posH, direction, pseudo, moto) {
 		return (y);
 	};
 	
-function ajouterJoueur(numjou, posiW, posiH, direction) {
+function ajouterMONJoueur(numjou, posiW, posiH, direction) {
 	var x = toX(posiW);
 	var y = toY(posiH);
-    j[numjou] = new Moto(numjou, x, y, direction, pseudoUser, dathUser);
+    j[numjou] = new Moto(numjou, x, y, direction, pseudoUser, dathUser, pseudoUser);
+	j[numjou].dessiner(numjou);
+	allBikes[dathUser][0] = false;
     j[numjou].dessiner(numjou);
-};
+}
+	
+function ajouterAutreJoueur(numjou, posiW, posiH, direction, autrePseudo){
+	var x = toX(posiW);
+	var y = toY(posiH);
+	for(var i = 0; i <= 6; i++){
+		if(allBikes[i][0]){
+			 j[numjou] = new Moto(numjou, x, y, direction, allBikes[i], autrePseudo);
+			 j[numjou].dessiner(numjou);
+			allBikes[i][0] = false;
+			break;
+		}
+	}
+}
+
 
 function everyoneGO(){
 	for(var i = 0; i <= 6; i++){
@@ -208,14 +190,13 @@ function everyoneGO(){
 
 function enregistrerCouleur(value){
 	console.log(value);
-	dath = value;
-	localStorage.setItem("dath", value);
+	window.localStorage.setItem("dath", value);
 }
 
 function enregistrerPseudo(){
 	var texte= document.querySelector("#pseudo");
 	pseudo = texte.value;
-	localStorage.setItem("pseudonyme", pseudo);
+	window.localStorage.setItem("pseudonyme", pseudo);
 	document.querySelector("#formPart").style.display="none";
 	document.querySelector("#canvasPart").style.display="block";
 	send();
@@ -228,14 +209,9 @@ function afficherTOUT(){
 }
 
 
-function assignerCouleur(moto){
-	moto[1] = false;
-}
-
-
 
 // // faire en sorte que chaque nouvelle moto qui arrive ou que les motos déjà présentes aient une couleur autre que celle choisie par l'utilisateur. 
-// var bleu[motobleue.jpg, booleen];
+// var bleu[motobleue.png, booleen];
 
 // function assignerCouleur(bleu[]){
 	// bleu[booleen]= false;
