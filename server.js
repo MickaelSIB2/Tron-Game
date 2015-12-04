@@ -51,56 +51,66 @@ wss.on("connection", function(ws){
         // WHEN A PLAYER CONNECTS TO THE SERVER
 	      case 1:
 	    	  var i = 1;
-	    	  while (tabID[i]) {		//always when player connect tabID + 1 player
+	    	  while (tabID[i]) {//always when player connect tabID + 1 player
 	    		  i++;
 	    	  }
 	    	  
-				if (i == 1) {							//when one player connects
-					ws.send(JSON.stringify({
-						code: alone,
-	                    message: // wait other players
-	                }))
-				} else if (i >= 6 ){					//when too much players connect
-			        ws.send(JSON.stringify({
-		                code: wait,
-		                message: // already 6 players
-		            }))
-				} else {								//good number of player in canvas
-					nbMotos += 1;
-			        tabID[i]= new player() ;
-			        this.playerID = i;
-			        var playersToSend = {}
-			        for(id in tabID){
-			             if(tabID[id]){
-			                  playersToSend[id] = {x: tabID[id].x, y: tabID[id].y, d: tabID[id].d};
-			             }
-			        }
-			      	
-			        // Treatement :
-			      	// 1) UPDATE DATAS
-			      	// Give the player its server-side id
-			        // and send it to him
-			        ws.send(JSON.stringify({
-			                code: 1,
-			                playerID: this.playerID,
-			                players: playersToSend
-			        }))
-			        // 2) BROADCAST NEW DATA
-				    // Send to everyone that a new player entered the game and
-			        // give
-				    // them its ID/position/direction whatever identifies him to
-					// others)
-				    // -> send broadcast code 2
-			        wss.broadcast({
-			                code: 2,
-			                player: {
-			                id: this.playerID,
-			                x: tabID[this.playerID].x,
-			                y: tabID[this.playerID].y,
-			                d: tabID[this.playerID].d
-			                }
-			        })
-				}               
+                  if (Object.size(tabID) == 1) {	//when one player connects
+                          ws.send(JSON.stringify({
+                                  code: "alone",
+                                  message: "alone"// wait other players
+                          }))
+                  } else if (Object.size(tabID) > 6){//when too much players connect
+                          ws.send(JSON.stringify({
+                                  code: "wait",
+                                  message: "wait"// already 6 players
+                          }))
+                  } else {//good number of player in canvas
+                          nbMotos += 1;
+                          tabID[i]= new player({
+                            x: 50,
+                            y: 50,
+                            d: 38,
+                            pseudo: msg.pseudo
+                          }) ;
+                          this.playerID = i;
+                          var playersToSend = {}
+                          for(id in tabID){
+                                if(tabID[id]){
+                                      playersToSend[id] = {
+                                        x: tabID[id].x, 
+                                        y: tabID[id].y, 
+                                        d: tabID[id].d,
+                                        pseudo: tabID[id].pseudo
+                                      }
+                                }
+                          }
+                  
+                          // Treatement :
+                          // 1) UPDATE DATAS
+                          // Give the player its server-side id
+                          // and send it to him
+                          ws.send(JSON.stringify({
+                                  code: 1,
+                                  playerID: this.playerID,
+                                  players: playersToSend
+                          }))
+                          // 2) BROADCAST NEW DATA
+                          // Send to everyone that a new player entered the game and
+                          // give
+                          // them its ID/position/direction whatever identifies him to
+                          // others)
+                          // -> send broadcast code 2
+                          wss.broadcast({
+                                  code: 2,
+                                  player: {
+                                  id: this.playerID,
+                                  x: tabID[this.playerID].x,
+                                  y: tabID[this.playerID].y,
+                                  d: tabID[this.playerID].d
+                                  }
+                          })
+		  }               
 	        break;
 	      case 5:
 	        // A PLAYER CHANGED HIS DIRECTION
@@ -111,70 +121,75 @@ wss.on("connection", function(ws){
 	         // direction for the right player.
 	    	  	//gauche = 37
 	    	  	//droite = 39
-		   	 	//haut = 38
+		   	//haut = 38
 	    	  	//bas = 40
 	    	  
 	    	 //Have to check playerID = i
 		   	  
 		   	 //loop's start, until end of game
-	    	 
-	    	 while (...)								
-		    	 if (tabID[i].d == 37)					//go to left
-		    		 tabID[i].x = tabID[i].x - 1;	
-			     } else if (tabID[i].d == 39)			//go to right
-			    	 tabID[i].x = tabID[i].x + 1;
-			   	 } else if (tabID[i].d == 38)			//go to top
-			   		tabID[i].y = tabID[i].x - 1;
-				 } else if (tabID[i].d == 40)			//go to bot'
-				 	tabID[i].y = tabID[i].x + 1;
-				 }
+                  
+                  msg.playerID
+                  msg.d
 
-				 //TestCollision : two players
-				 var collision = {} //the 2 playerID in collision
-				 for(player_collision in tabID){
-					 player_collision = i + 1;
-					 if (player_collision == 7){
-						 player_collision = 1;
-					 }
-					 
-					 if(tabID[i].x == tabID[player_collision].x && tabID[i].y == tabID[player_collision].y){	
-					        wss.broadcast({			//Notify everyone about the collision
-				                code: 5,
-				                collsion: {
-				                id_1: i,
-				                id_2: player_collision
-				                }
-					        })
-					 }
-		         }
-			
-				
-				 if (tabID[i].x == 100) {			//out of horizontal canvas
-				 	tabID[i].x = 0;
-				 } else if (tabID[i].x == 0) {
-					 tabID[i].x = 100;
-				 )
-					
-				 if  (tab[i].y == 100) {			//out of vertical canvas
-					tab[ID].y =0;
-				 } else if (tabID[i].y == 0) {
-					 tabID[i].y = 100;
-				 )   
+                  tabID[msg.playerID].d = msg.d
+	    	 
+                  if (tabID[i].d == 37){					//go to left
+                      tabID[i].x -= 1;	
+                  } else if (tabID[i].d == 39)			//go to right
+                      tabID[i].x += 1;
+                  } else if (tabID[i].d == 38)			//go to top
+                      tabID[i].y -= 1;
+                  } else if (tabID[i].d == 40)			//go to bot'
+                      tabID[i].y += 1;
+                  }
+
+                   //TestCollision : two players
+                  var collision = {} //the 2 playerID in collision
+                  for(player_collision in tabID){
+                      player_collision = i + 1;
+                      if (player_collision == 7){
+                          player_collision = 1;
+                      }
+                           
+                      if(tabID[i].x == tabID[player_collision].x && 
+                          tabID[i].y == tabID[player_collision].y) 
+                      {	
+                                  wss.broadcast({//Notify everyone about the collision
+                                      code: 5,
+                                      collsion: {
+                                          id_1: i,
+                                          id_2: player_collision
+                                      }
+                                  })
+                      }
+                  }
+          
+                  
+                   if (tabID[i].x == 100) {//out of horizontal canvas
+                          tabID[i].x = 0;
+                   } else if (tabID[i].x == 0) {
+                           tabID[i].x = 100;
+                   }
+                          
+                   if  (tab[i].y == 100) {//out of vertical canvas
+                          tab[ID].y =0;
+                   } else if (tabID[i].y == 0) {
+                           tabID[i].y = 100;   
 			 
 			 	 // 2) BROADCAST PLAYER & NEW DIRECTION
 	         	 // Notify everyone about this player's change;
 	         	 // -> send broadcast code 5
 	  		
-	             wss.broadcast({					//Notify everyone about the change of direction
-	                 code: 5,
-	                 player: {
-	                    id: this.playerID,
-	                    x: tabID[this.playerID].x,
-	                    y: tabID[this.playerID].y,
-	                    d: tabID[this.playerID].d
-	                  }
-	             })
-			 }
+                          wss.broadcast({//Notify everyone about the change of direction
+                                 code: 5,
+                                 player: {
+                                    id: this.playerID,
+                                    x: tabID[this.playerID].x,
+                                    y: tabID[this.playerID].y,
+                                    d: tabID[this.playerID].d
+                                  }
+                             })
+		    }
 	  
 	  		 //loop's end 
 	  
