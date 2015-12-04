@@ -1,6 +1,9 @@
-var j; var ctx; var c;
-	var dathUser = localStorage.getItem("dath");
-	var pseudoUser = localStorage.getItem("pseudonyme");
+var host = location.origin.replace(/^http/, 'ws');
+var socket = new WebSocket(host);
+var j, ctx, c;
+var imageFile = "styles/"
+	var dathUser = sessionStorage.getItem("dath");
+	var pseudoUser = sessionStorage.getItem("pseudonyme");
 	var bleue 		= [true, "j1_left.png", "j1_up.png", "j1_right.png", "j1_down.png"]; 
 	var jaune 	= [true, "j2_left.png", "j2_up.png", "j2_right.png", "j2_down.png"]; 
 	var violette 		= [true, "j3_left.png", "j3_up.png", "j3_right.png", "j3_down.png"];
@@ -69,19 +72,19 @@ function Moto(numJoueur, posW, posH, direction, moto, pseudo) {
 		
 		// ard = haut
         if(this.direction == "ard")
-           this.bike.src =this.moto[2];
+           this.bike.src = imageFile + this.moto[2];
         
          // deis = droite
         if(this.direction == "deis")
-			 this.bike.src = this.moto[3];
+			 this.bike.src = imageFile + this.moto[3];
 			
          // bun = bas
         if(this.direction == "bun")
-             this.bike.src = this.moto[4];
+             this.bike.src = imageFile + this.moto[4];
 		
 		  // clé = gauche
         if(this.direction == "cle")
-             this.bike.src = this.moto[1];
+             this.bike.src = imageFile + this.moto[1];
 			
 		this.bike.onload = function () 
 				//time to draw... bang bang
@@ -187,19 +190,18 @@ function everyoneGO(){
 	}
 }
 
-
 function enregistrerCouleur(value){
 	console.log(value);
-	window.localStorage.setItem("dath", value);
+        sessionStorage.dath = value;
 }
 
 function enregistrerPseudo(){
 	var texte= document.querySelector("#pseudo");
 	pseudo = texte.value;
-	window.localStorage.setItem("pseudonyme", pseudo);
+	sessionStorage.pseudonyme = pseudo;
 	document.querySelector("#formPart").style.display="none";
 	document.querySelector("#canvasPart").style.display="block";
-	send();
+	socket.send(JSON.stringify({code: 1, pseudo: pseudoUser}));
 }
 
 function afficherTOUT(){
@@ -223,16 +225,3 @@ function afficherTOUT(){
 			// bleu[booleen] = false;
 			// break;
 // }
-
-
-
-
-
-
-
-
-
-
-
-
-

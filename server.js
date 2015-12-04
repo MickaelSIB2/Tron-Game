@@ -55,12 +55,12 @@ wss.on("connection", function(ws){
 	    		  i++;
 	    	  }
 	    	  
-                  if (Object.size(tabID) == 1) {	//when one player connects
+                  if (false/*Object.size(tabID) == 1*/) {	//when one player connects
                           ws.send(JSON.stringify({
                                   code: "alone",
                                   message: "alone"// wait other players
                           }))
-                  } else if (Object.size(tabID) > 6){//when too much players connect
+                  } else if (false /*Object.size(tabID) > 6*/){//when too much players connect
                           ws.send(JSON.stringify({
                                   code: "wait",
                                   message: "wait"// already 6 players
@@ -85,6 +85,8 @@ wss.on("connection", function(ws){
                                       }
                                 }
                           }
+
+                          console.log("should be sending");
                   
                           // Treatement :
                           // 1) UPDATE DATAS
@@ -135,11 +137,11 @@ wss.on("connection", function(ws){
 	    	 
                   if (tabID[i].d == 37){					//go to left
                       tabID[i].x -= 1;	
-                  } else if (tabID[i].d == 39)			//go to right
+                  } else if (tabID[i].d == 39){			//go to right
                       tabID[i].x += 1;
-                  } else if (tabID[i].d == 38)			//go to top
+                  } else if (tabID[i].d == 38){			//go to top
                       tabID[i].y -= 1;
-                  } else if (tabID[i].d == 40)			//go to bot'
+                  } else if (tabID[i].d == 40){			//go to bot'
                       tabID[i].y += 1;
                   }
 

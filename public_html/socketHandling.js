@@ -3,14 +3,9 @@
  * defined in script.js
  */
 
-var host = location.origin.replace(/^http/, 'ws');
-var socket = new WebSocket(host);
 var c = document.querySelector("#myCanvas");
 var allPlayers = {};
 var idjoueur; 
-var send = function(){
-	socket.send(JSON.stringify({code: 1, pseudo: pseudoUser}));
-}
 
 //jouer.addEventListener("click", send, true);
 
@@ -36,11 +31,17 @@ socket.onmessage = function(e){
       allPlayers = msg.players;
       var id;
 
-	idJoueur = msg.player.playerID;
+	idJoueur = msg.playerID;
 
 	console.log(JSON.stringify(msg));
 	
-	ajouterMONJoueur(idJoueur, msg.player.x, msg.player.y, "cle");
+      var direction = "cle";
+
+	ajouterMONJoueur(
+            idJoueur, 
+            msg.players[msg.playerID].x, 
+            msg.players[msg.playerID].y, 
+            direction);
       //for(id in allPlayers){
 	//	ajouterMONJoueur(id, allPlayers[id].x, allPlayers[id].y, "cle");
 	// }      
