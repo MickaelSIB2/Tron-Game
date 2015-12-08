@@ -42,9 +42,7 @@ socket.onmessage = function(e){
             msg.players[msg.playerID].x, 
             msg.players[msg.playerID].y, 
             direction);
-      //for(id in allPlayers){
-	//	ajouterMONJoueur(id, allPlayers[id].x, allPlayers[id].y, "cle");
-	// }      
+
       break;
     case 2:
       // WHEN A NEW PLAYER, WHICH IS NOT ME, ENTERS THE GAME.
@@ -56,9 +54,13 @@ socket.onmessage = function(e){
       // colors)
       // console.log(idjoueur);
       // console.log(msg.player.id)
-      if(msg.player.id != idjoueur){
-        ajouterAutreJoueur(msg.player.id, msg.player.x, msg.player.y, "ard");
+	  for(id in allPlayers){
+      if(msg.player.id != msg.playerID){
+        ajouterAutreJoueur(
+			msg.players[id].id, 
+			msg.player.x, msg.player.y, "ard");
       }
+	  }
       
       break;
     case 3:
