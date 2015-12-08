@@ -109,7 +109,8 @@ wss.on("connection", function(ws){
                                   id: this.playerID,
                                   x: tabID[this.playerID].x,
                                   y: tabID[this.playerID].y,
-                                  d: tabID[this.playerID].d
+                                  d: tabID[this.playerID].d,
+                                  pseudo: tabID[id].pseudo
                                   }
                           })
 		  }               
