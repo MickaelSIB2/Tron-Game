@@ -5,7 +5,7 @@
 
 var c = document.querySelector("#myCanvas");
 var allPlayers = {};
-var idjoueur; 
+var idJoueur; 
 
 //jouer.addEventListener("click", send, true);
 
@@ -13,7 +13,7 @@ var idjoueur;
 
 socket.onmessage = function(e){
   var msg = JSON.parse(e.data);
-  var idJoueur;
+
   // Every piece of data are accessibles via msg.something
   switch (msg.code){
     case 1:
@@ -42,6 +42,18 @@ socket.onmessage = function(e){
             msg.players[msg.playerID].x, 
             msg.players[msg.playerID].y, 
             direction);
+            
+            
+  for(pID in allPlayers){
+      if(pID != msg.playerID){
+        ajouterAutreJoueur(
+			  pID, 
+			  msg.players[pID].x, 
+			  msg.players[pID].y, 
+			  msg.players[pID].pseudo, 
+			  "cle");
+      }
+	  }
 
       break;
     case 2:
@@ -54,13 +66,11 @@ socket.onmessage = function(e){
       // colors)
       // console.log(idjoueur);
       // console.log(msg.player.id)
-	  for(id in allPlayers){
-      if(msg.player.id != msg.playerID){
-        ajouterAutreJoueur(
-			msg.players[id].id, 
-			msg.player.x, msg.player.y, "ard");
+
+      if(idJoueur != msg.player.id){
+        ajouterAutreJoueur(msg.player.id, msg.player.x, msg.player.y, msg.player.pseudo, "cle");
       }
-	  }
+	  
       
       break;
     case 3:
@@ -96,7 +106,7 @@ socket.onmessage = function(e){
       
        // switch (msg.key){
          // case 37:
-             // j[id].direction = "clé";
+             // j[id].direction = "cl?";
              // break;
          // case 39:
              // j[id].direction = "deis";
