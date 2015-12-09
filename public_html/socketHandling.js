@@ -35,7 +35,7 @@ socket.onmessage = function(e){
 
 	console.log(JSON.stringify(msg));
 	
-      var direction = "cle";
+      var direction = "ard";
 
 	ajouterMONJoueur(
             idJoueur, 
@@ -50,8 +50,8 @@ socket.onmessage = function(e){
 			  pID, 
 			  msg.players[pID].x, 
 			  msg.players[pID].y, 
-			  msg.players[pID].pseudo, 
-			  "cle");
+        direction,
+			  msg.players[pID].pseudo);
       }
 	  }
 
@@ -68,7 +68,7 @@ socket.onmessage = function(e){
       // console.log(msg.player.id)
 
       if(idJoueur != msg.player.id){
-        ajouterAutreJoueur(msg.player.id, msg.player.x, msg.player.y, msg.player.pseudo, "cle");
+        ajouterAutreJoueur(msg.player.id, msg.player.x, msg.player.y, "cle", msg.player.pseudo);
       }
 	  
       

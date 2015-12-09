@@ -1,16 +1,16 @@
 var host = location.origin.replace(/^http/, 'ws');
 var socket = new WebSocket(host);
 var j, ctx, c;
-var imageFile = "styles/"
+var imageFile = "styles/bigScreen/"
 	var dathUser; 
 	var pseudoUser;
 	
 	var allBikes = [];
-	allBikes[0] = ["bleue", true, "j1_left.png", "j1_up.png", "j1_right.png", "j1_down.png"]; 
-	allBikes[1] = ["jaune", true, "j2_left.png", "j2_up.png", "j2_right.png", "j2_down.png"]; 
-	allBikes[2] = ["violette", true, "j3_left.png", "j3_up.png", "j3_right.png", "j3_down.png"]; 
-	allBikes[3] = ["rouge", true, "j4_left.png", "j4_up.png", "j4_right.png", "j4_down.png"]; 
-	allBikes[4] = ["verte", true, "j5_left.png", "j5_up.png", "j5_right.png", "j5_down.png"]; 
+	allBikes[0] = ["blue", true, "j1_left.png", "j1_up.png", "j1_right.png", "j1_down.png"]; 
+	allBikes[1] = ["yellow", true, "j2_left.png", "j2_up.png", "j2_right.png", "j2_down.png"]; 
+	allBikes[2] = ["purple", true, "j3_left.png", "j3_up.png", "j3_right.png", "j3_down.png"]; 
+	allBikes[3] = ["red", true, "j4_left.png", "j4_up.png", "j4_right.png", "j4_down.png"]; 
+	allBikes[4] = ["green", true, "j5_left.png", "j5_up.png", "j5_right.png", "j5_down.png"]; 
 	allBikes[5] = ["orange", true, "j6_left.png", "j6_up.png", "j6_right.png", "j6_down.png"]; 
 	
 function init(){
@@ -68,7 +68,7 @@ function Moto(numJoueur, posW, posH, direction, moto, pseudo) {
 	
 	
     Moto.prototype.dessiner = function (numjou) {
-		console.log("depuis dessiner : " + this.direction);
+
 		// ard = haut
         if(this.direction == "ard")
            this.bike.src = imageFile + this.moto[3];
@@ -78,16 +78,18 @@ function Moto(numJoueur, posW, posH, direction, moto, pseudo) {
 			 this.bike.src = imageFile + this.moto[4];
 			
          // bun = bas
-        if(this.direction == "bun")
+        if(this.direction == "bun"){
              this.bike.src = imageFile + this.moto[5];
+         }
 		
 		  // clé = gauche
-        if(this.direction == "cle")
+        if(this.direction == "cle"){
              this.bike.src = imageFile + this.moto[2];
-			
+			}
+
 		this.bike.onload = function () {
 				//time to draw... bang bang
-				j[numjou].ctxt.drawImage(j[numjou].bike, j[numjou].posW, j[numjou].posH);		
+				j[numjou].ctxt.drawImage(j[numjou].bike, (j[numjou].posW), j[numjou].posH);		
 		}
     };
 	
@@ -107,7 +109,6 @@ function Moto(numJoueur, posW, posH, direction, moto, pseudo) {
 	
     Moto.prototype.laMuerta = function (){
 		this.ctxt.clearRect(this.posW, this.posH, 32, 32);
-		this.ctxt.clearRect(this.posW, this.posH, 32, 32);
         this.bike.src="styles/KABOUM!.png";
         this.bike.onload = function(){
 			cthis.ctxt.drawImage(bike, this.posW, this.posH);
@@ -116,35 +117,129 @@ function Moto(numJoueur, posW, posH, direction, moto, pseudo) {
         }, 1250);
 		}
     };
-	
 
 	
+ Moto.prototype.goGoGO = function (direction){
+	var imFull = this.bike.width;
+	var imHalf = this.bike.width/2;
+	var imThird = this.bike.width/3;
 	
-	
- Moto.prototype.goGoGO = function (){
-						console.log("depuis goGoGO : " + this.direction);
-                        if(this.direction = "ard"){
-                                 this.ctxt.clearRect(this.posW, this.posH, 32, 32);
-                                 this.posH -= 3;
+						this.ctxt.beginPath();
+
+                        if(direction == "ard"){
+                                 
+								 if((this.posH +imFull)<= 0)
+									 this.posH = this.canvas.height;
+                                 this.ctxt.moveTo((this.posW+imHalf), (this.posH+imFull));
+								 this.ctxt.clearRect((this.posW+imThird), (this.posH-2), imThird, imFull-2);
+                                 this.posH -= imFull/8;
+								 
+                                 this.ctxt.lineTo((this.posW+imHalf), (this.posH+imFull));
                          }
                         
-                         if(this.direction=="deis"){
-                                 this.ctxt.clearRect(this.posW, this.posH, 32, 32);
-                                 this.posW += 3;
+                         if(direction=="deis"){
+                                 
+								 if(this.posW >= this.canvas.width)
+									 this.posW = 0;
+                                 this.ctxt.moveTo((this.posW), (this.posH+imHalf));
+                                 this.ctxt.clearRect((this.posW+2), (this.posH+imThird), imFull-2, imThird);
+                                 this.posW +=  imFull/8;
+								 
+                                 this.ctxt.lineTo((this.posW), (this.posH + imHalf));
                          }
                         
-                         if(this.direction=="bun"){
-                                 this.ctxt.clearRect(this.posW, this.posH, 32, 32);
-                                 this.posH += 3;
+                         if(direction=="bun"){
+                                 if(this.posH >= this.canvas.height)
+									 this.posH = 0;
+                                 this.ctxt.moveTo((this.posW+imHalf), (this.posH));
+                                 this.ctxt.clearRect((this.posW+imThird), (this.posH+2), imThird, imFull-2);
+                                 this.posH += imFull/8;
+                                 this.ctxt.lineTo((this.posW+imHalf), (this.posH));
                          }
                         
-                         if(this.direction=="cle"){
-                                 this.ctxt.clearRect(this.posW, this.posH, 32, 32);
-                                 this.posW -= 3;
+                         if(direction=="cle"){
+                                 if((this.posW+imFull) <= 0)
+									 this.posW = this.canvas.width;
+                                 this.ctxt.moveTo((this.posW+imFull), (this.posH+imHalf));
+                                 this.ctxt.clearRect((this.posW-2), (this.posH+imThird), imFull-2, imThird);
+                                 this.posW -= imFull/8;
+                                 this.ctxt.lineTo((this.posW+imFull), (this.posH+imHalf));
                          }
+                         
                          this.dessiner(this.numJoueur);
+                         this.ctxt.strokeStyle=this.moto[0];
+                         this.ctxt.stroke();
+                         this.ctxt.closePath();
 };
          
+Moto.prototype.cas = function(dir){
+	
+	var imFull = this.bike.width;
+	var imHalf = this.bike.width/2;
+	var imThird = this.bike.width/3;
+	
+	var imW = this.bike.width;
+	var imH = this.bike.height;
+	
+	// Tracer le bout de mur pour qu'il rejoigne celui de la nouvelle direction.
+	if(this.direction == "ard"){
+		this.ctxt.clearRect((this.posW+imThird), (this.posH-2), imThird, imFull-2);
+		this.ctxt.beginPath();
+		this.ctxt.moveTo((this.posW+imHalf), this.posH+imHalf);
+		this.ctxt.lineTo((this.posW+imHalf), (this.posH+imFull));
+		this.ctxt.strokeStyle=this.moto[0];
+		this.ctxt.stroke();
+		this.ctxt.closePath();
+	}
+	
+	if(this.direction == "deis"){
+		this.ctxt.clearRect((this.posW-2), (this.posH+imThird), imFull-2, imThird);
+		this.ctxt.beginPath();
+		this.ctxt.moveTo((this.posW-2), this.posH+imHalf);
+		this.ctxt.lineTo((this.posW+imHalf), (this.posH+imHalf));
+		this.ctxt.strokeStyle=this.moto[0];
+		this.ctxt.stroke();
+		this.ctxt.closePath();
+	}
+	
+	if(this.direction == "bun"){
+		this.ctxt.clearRect((this.posW+imThird), (this.posH-2), imThird, imFull-2);
+		this.ctxt.beginPath();
+		this.ctxt.moveTo((this.posW+imHalf), this.posH-2);
+		this.ctxt.lineTo((this.posW+imHalf), (this.posH+imHalf));
+		this.ctxt.strokeStyle=this.moto[0];
+		this.ctxt.stroke();
+		this.ctxt.closePath();
+	}
+
+	if(this.direction == "cle"){
+		this.ctxt.clearRect((this.posW-2), (this.posH+imThird), imFull-2, imThird);
+		this.ctxt.beginPath();
+		this.ctxt.moveTo((this.posW+imHalf), (this.posH+imHalf));
+		this.ctxt.lineTo((this.posW+imFull), (this.posH+imHalf));
+		this.ctxt.strokeStyle=this.moto[0];
+		this.ctxt.stroke();
+		this.ctxt.closePath();
+	}
+	
+	//changement de direction
+	this.direction = dir;
+
+	//avancer la lightbike dans la nouvelle direction afin de ne pas effacer le trait.
+	if(this.direction == "deis"){
+		this.posW += imHalf;
+	}
+	if(this.direction == "bun"){
+		this.posH +=imHalf;
+	}
+	if(this.direction == "cle"){
+		this.posW -= imHalf;
+	}
+	if(this.direction == "ard"){
+		this.posH -=imHalf;
+	}
+	
+}
 
 ////////////////////////////////////////////////
 
@@ -163,7 +258,6 @@ function ajouterMONJoueur(numjou, posiW, posiH, direction) {
 	var y = toY(posiH);
 	var moto = testMoto(dathUser);
     j[numjou] = new Moto(numjou, x, y, direction, moto, pseudoUser);
-	console.log(moto[1]);
 	moto[1] = false;
     j[numjou].dessiner(numjou);
 }
@@ -185,25 +279,22 @@ function ajouterAutreJoueur(numjou, posiW, posiH, direction, autrePseudo){
 function everyoneGO(){
 	for(var i = 0; i <= 6; i++){
 		if(j[i] != null){
-			j[i].goGoGO();
+			j[i].goGoGO(j[i].direction);
 		}
 	}
 }
 
 function enregistrerCouleur(value){
 	console.log(value);
-		sessionStorage.clear();
-        sessionStorage.setItem("dath", value);
+		dathUser = value;
 }
 
 function enregistrerPseudo(){
 	var texte= document.querySelector("#pseudo");
-	pseudo = texte.value;
-	sessionStorage.setItem("pseudonyme", pseudo);
+	pseudoUser = texte.value;
 	document.querySelector("#formPart").style.display="none";
 	document.querySelector("#canvasPart").style.display="block";
-	dathUser = sessionStorage.getItem("dath");
-	pseudoUser = sessionStorage.getItem("pseudonyme");
+
 	socket.send(JSON.stringify({code: 1, pseudo: pseudoUser}));
 	console.log(dathUser);
 }
@@ -214,6 +305,7 @@ function afficherTOUT(){
 	console.log(pseudoUser);
 }
 
+//Sert à indiquer à ajouterMonJoueur la moto à utiliser.
 function testMoto(couleur){
 	for(var i = 0; i <= 5; i++){
 		if(allBikes[i][0] == couleur)

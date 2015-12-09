@@ -4,7 +4,9 @@
         <title>Light Bikes game</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" type="text/css" href="styles/style.css">
+        <!--<link rel="stylesheet" type="text/css" href="styles/style.css">-->
+		<link href="bootstrap/css/bootstrap.css" rel="stylesheet">
+		<script src="bootstrap/js/bootstrap.min.js"></script>
         <script src="script.js" defer="true">
         </script>
         <script src="socketHandling.js" defer="true"></script>
@@ -22,30 +24,30 @@
 							<tr>
 							
 								<td>
-									<img src="styles/j1_prof.png" alt="lightbike bleue" onclick="enregistrerCouleur('bleue');">
+									<img src="styles/bigScreen/j1_prof.png" alt="lightbike bleue" onclick="enregistrerCouleur('blue');">
 								</td>
 								
 								<td>
-									<img src="styles/j2_prof.png" alt="lightbike jaune" onclick="enregistrerCouleur('jaune');">
+									<img src="styles/bigScreen/j2_prof.png" alt="lightbike jaune" onclick="enregistrerCouleur('yellow');">
 								</td>
 								
 								<td>
-									<img src="styles/j3_prof.png" alt="lightbike violette"onclick="enregistrerCouleur('violette');">
+									<img src="styles/bigScreen/j3_prof.png" alt="lightbike violette"onclick="enregistrerCouleur('purple');">
 								</td>
 							
 							</tr>
 							<tr>
 							
 								<td>
-									<img src="styles/j4_prof.png" alt="lightbike rouge" onclick="enregistrerCouleur('rouge');">
+									<img src="styles/bigScreen/j4_prof.png" alt="lightbike rouge" onclick="enregistrerCouleur('red');">
 								</td>
 								
 								<td>
-									<img src="styles/j5_prof.png" alt="lightbike verte" onclick="enregistrerCouleur('verte');">
+									<img src="styles/bigScreen/j5_prof.png" alt="lightbike verte" onclick="enregistrerCouleur('green');">
 								</td>
 								
 								<td>
-									<img src="styles/j6_prof.png" alt="lightbike orange"onclick="enregistrerCouleur('orange');">
+									<img src="styles/bigScreen/j6_prof.png" alt="lightbike orange"onclick="enregistrerCouleur('orange');">
 								</td>
 							
 							</tr>							
@@ -53,25 +55,31 @@
 						
 			
 					<a id="valider" onclick="enregistrerPseudo();">Commencer !</a>
-				<!--<script>
-				if(localStorage.getItem("dath") != null){
-					document.querySelector("#valider").style.display = 'inline';
-				}
-			</script> -->
-			
+
 		</div>
 		
 		<div id="canvasPart" style="display : none">
 				<div>
-                    <button id="test" onclick="afficherTOUT();">Test</button>
+                    <button id="test" onclick="j[1].cas('cle');">Test gauche</button>
+					<button id="test" onclick="j[1].cas('deis');">Test droite</button>
+					<button id="test" onclick="j[1].cas('ard');">Test haut</button>
+					<button id="test" onclick="j[1].cas('bun');">Test bas</button>
 					<button id="stopButton">STOP</button>
 					<button id="startButton">GO</button>
                 </div>
            
-            
-                <canvas id="myCanvas" width="1100" height="550">
-                    Your browser does not support canvas!
-                </canvas>
+				<div class="row">
+					<div class="col-lg-offset-1 col-lg-10">
+						<canvas id="myCanvas" width="1100" height="550">
+								Your browser does not support canvas!
+						</canvas>
+				</div>
+					<!--<div class="col-xs-10">
+						<canvas id="myCanvas" width="700" height="350">
+								Your browser does not support canvas!
+						</canvas>
+					</div> -->
+				</div>
 				</div>
     </body>
 </html>
